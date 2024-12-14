@@ -14,7 +14,7 @@
 
 ## Introduction
 4EvaBraids is an online hair braiding platform, where users can books appointments with with skilled braiders and get their hair made, either as home service or onsite braiding. While this is the core of it's purpose there are other functionalities and features developed to spice up the site - Read on and see more!
-![Landing Page](https://drive.google.com/file/d/1RnJwv73O4jzpsLnvxwUje21kR-77wFIj/view?usp=sharing)
+![Landing Page](docs/images/Hero%20Section.png "Landing Page")
 
 ## About
 - Purpose
@@ -34,7 +34,7 @@
         - Massive data logging and gathering information
         - Complex automation to ease both client and braider of stress
 
-![Features Page](https://drive.google.com/file/d/1KG04tMs0yetQGBa-e2ATLPplbqwL7yui/view?usp=drive_link)
+![Features Page](docs/images/Features%20Section.png "Features Section")
 
 
 ## Implemented Features
@@ -63,7 +63,7 @@ None Yet
    - An e-store for hair accessories
    - And other fashion components
   
-![How to Book Page](https://drive.google.com/file/d/13E0fEaiGfOdOTcebGJFm8HLy19kpZqw6/view?usp=sharing)
+![How to Book Page](docs/images/How%20to%20Book.jpg "Booking Instruction")
 
 ## Technologies
 The following technologies were used for this project
