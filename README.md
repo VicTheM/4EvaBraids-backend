@@ -12,6 +12,59 @@
 9. [Contributing](#contributing)
 11. [Link to resources](#important-links)
 
+## Introduction
+4EvaBraids is an online hair braiding platform, where users can books appointments with with skilled braiders and get their hair made, either as home service or onsite braiding. While this is the core of it's purpose there are other functionalities and features developed to spice up the site - Read on and see more!
+![Landing Page](https://drive.google.com/file/d/1RnJwv73O4jzpsLnvxwUje21kR-77wFIj/view?usp=sharing)
+
+## About
+- Purpose
+    - The purpose of this site is to make finding and making braiding appointments easier for clients and also to automate managing custormers for the braiders. It also improves visibility and professionalism.
+- Motivation
+    - Prior tonow, braiders use Instagram and Tiktok as their bassic platform for professional page and work gallery. while these platforms are very good when used as galleries, they have several disadvantages. Just to list a few
+        - Not flexible
+        - Zero Automation
+        - Less professional
+        - Poor data gathering capabilities
+- Solution
+    - We provide the solution to all the above stated problems, and even more. such solutions are stated below
+        - Great professional brand (using a .com site, cool!)
+        - Unlimited way to showcase your work (we even liked the gallery to both IG and Tiktok, so videos hosted there can be displayed nd showcased on the site while keepig our database lighter
+        - Premuim booking experience
+        - Blog to improve SEO and show Ads
+        - Massive data logging and gathering information
+        - Complex automation to ease both client and braider of stress
+
+![Features Page](https://drive.google.com/file/d/1KG04tMs0yetQGBa-e2ATLPplbqwL7yui/view?usp=drive_link)
+
+
+## Implemented Features
+None Yet
+
+##  Yet To Be Implemented Features
+1) Gallery: A video and photo library
+   - Gallery from our local database
+   - Gallery from Instagram
+   - Gallery from Tiktok
+2) Booking algorithm
+   - Account is created automatically using booking information
+   - Email is sent to the braiders for a booking appointment
+   - SMS is sent to the braiders for a bookig appointment
+   - The whatsapp contack and IG handle of braider is returned to client
+3) Blog
+   - Blog with title, body and images (with links to youtube videos if needed)
+   - Comments and likes for a blog
+4) Testimonials
+   - Testimonials from Clients
+   - Achievemens and certificates
+5) Online Payment Platform
+   - For approved appointments
+   - For items bought from the e-store
+7) E-Cormmerce
+   - An e-store for hair accessories
+   - And other fashion components
+  
+![How to Book Page](https://drive.google.com/file/d/13E0fEaiGfOdOTcebGJFm8HLy19kpZqw6/view?usp=sharing)
+
 ## Technologies
 The following technologies were used for this project
 | Technology   | Purpose | Documentation link   |
