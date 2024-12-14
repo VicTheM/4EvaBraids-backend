@@ -63,7 +63,7 @@ None Yet
    - An e-store for hair accessories
    - And other fashion components
   
-![How to Book Page](docs/images/How%20to%20Book.jpg "Booking Instruction")
+![How to Book Page](docs/images/How%20to%20Book.png "Booking Instruction")
 
 ## Technologies
 The following technologies were used for this project
