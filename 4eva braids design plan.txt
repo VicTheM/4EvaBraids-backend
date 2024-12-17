@@ -41,7 +41,6 @@ Booking info: (* means not compulsory)
 Gallery: Different types
 		- Images from local database
 		- Embedded IG videos
-		- Embedded TikTok video
 
 Blog: Fields
 	Heading topic
