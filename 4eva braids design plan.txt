@@ -1,13 +1,48 @@
-Auth Strategy:
-email verification fields:
-Signup fields: Login fields:
-Password Reset strategy:
+Signup fields:
+	Name
+	Email
+	Gender
+	IG Handle OR Whatsapp Number
+	Choice Username
+	Password
+
+Login Fields
+	Username Or Email
+	Password [ if the user was created automatically
+		   during booking, They will have to reset
+		password with email alone or signUp again
+		when we create a user without password, we
+		will store NULL there]
+
+Auth Strategy: Basic Authentication
+
+email verification fields: Email
+			[ then we send a link to the email with
+			secret code, they will have to give us that code
+			or click the link to validate it ]
+
+Password Reset strategy: 
+	Email verification process
+	New password
+
 Available Services: Static
-Booking info:
+
+Booking info: (* means not compulsory)
+	Name
+	Phone Number
+	IG Handle OR Whatsapp Number
+	Email
+	Date and time
+	Desired location (including onsite)
+	Desired style* (brief description)
+	Image of style*
+	[Registered users need only provide date, that's all]
+	
 Gallery: Different types
-		- Embedded IG videos
 		- Images from local database
+		- Embedded IG videos
 		- Embedded TikTok video
+
 Blog: Fields
 	Heading topic
 	Sub topics
@@ -16,7 +51,3 @@ Blog: Fields
 	embed youtube video
 	Anonymous likes
 	registered users comment
-
-COMPONENTS NEEDED
-	Database
-	API
