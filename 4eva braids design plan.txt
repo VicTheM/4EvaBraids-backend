@@ -1,0 +1,22 @@
+Auth Strategy:
+email verification fields:
+Signup fields: Login fields:
+Password Reset strategy:
+Available Services: Static
+Booking info:
+Gallery: Different types
+		- Embedded IG videos
+		- Images from local database
+		- Embedded TikTok video
+Blog: Fields
+	Heading topic
+	Sub topics
+	body
+	add image
+	embed youtube video
+	Anonymous likes
+	registered users comment
+
+COMPONENTS NEEDED
+	Database
+	API
