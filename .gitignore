@@ -19,3 +19,4 @@ bin-release/
 
 # I don't think we'll be making use of the stuff above so...
 .env
+poetry.lock

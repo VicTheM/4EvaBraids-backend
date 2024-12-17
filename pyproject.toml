@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "4evabraids-backend"
+version = "0.1.0"
+description = "The backend server for the 4evabraids backend service"
+authors = ["Ukeme Edet <ukemeedet2207@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = {extras = ["standard"], version = "^0.115.6"}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
