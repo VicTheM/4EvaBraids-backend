@@ -1,8 +1,8 @@
 from bson import ObjectId
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Response
 import service.user as user_service
 from models import ObjectIdPydanticAnnotation
-from models.user import UserInDB, UserCreate, UserOut
+from models.user import UserCreate, UserOut
 from typing import Annotated, List
 
 router = APIRouter(prefix="/users", tags=["users"])
@@ -56,15 +56,22 @@ async def get_user_by_email(email: str):
 
 @router.put("/{user_id}", response_model=UserOut)
 async def update_user(
-    user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation], user: UserInDB
+    user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation], user: UserCreate
 ):
-    user = await user_service.update_user(user)
-    return user
+    user = await user_service.update_user(user_id, user)
+    if user:
+        return user
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
+    )
 
 
-@router.delete("/{user_id}", response_model=UserOut)
+@router.delete(
+    "/{user_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+)
 async def delete_user(
     user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation]
 ):
     user = await user_service.delete_user(user_id)
-    return user
+    return Response(status_code=status.HTTP_204_NO_CONTENT)

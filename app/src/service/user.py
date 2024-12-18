@@ -30,8 +30,15 @@ async def get_user_by_email(email: str) -> UserInDB:
     return await user_repo.get_user_by_email(email)
 
 
-async def update_user(user: UserInDB) -> UserInDB:
-    return await user_repo.update_user(user)
+async def update_user(
+    user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation], user: UserCreate
+) -> UserInDB:
+    user_got = await get_user_by_id(user_id)
+    print(user_got)
+    user_dict = user.model_dump()
+    user_got.update(user_dict)
+    del user_got["password"]
+    return await user_repo.update_user(user_got)
 
 
 async def delete_user(

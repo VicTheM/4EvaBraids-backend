@@ -21,7 +21,7 @@ class UserInDB(UserCreate):
     id: Annotated[ObjectId, ObjectIdPydanticAnnotation] = Field(
         default_factory=ObjectId, alias="_id"
     )
-    hashed_password: str = Field(..., min_length=6, max_length=50)
+    hashed_password: str = Field(..., min_length=6, max_length=80)
     password: ExcludedField[str | None] = None
     date_created: datetime = Field(
         default_factory=lambda: datetime.now(dt.timezone.utc)

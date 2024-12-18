@@ -3,13 +3,16 @@ from bson import ObjectId
 from data import async_db
 from models.user import UserInDB, UserCreate
 from models import ObjectIdPydanticAnnotation
+from utils import hash_password
 
 
 class UserRepository:
     async def create_user(self, user: UserCreate) -> UserInDB:
-        user = UserInDB(**user.model_dump())
-        user = await async_db.users.insert_one(user.model_dump())
-        return user
+        user_dict = user.model_dump()
+        user_dict["hashed_password"] = hash_password(user_dict["password"])
+        del user_dict["password"]
+        create_res = await async_db.users.insert_one(user_dict)
+        return await self.get_user_by_id(create_res.inserted_id)
 
     async def get_all_users(self) -> list[UserInDB]:
         users = await async_db.users.find().to_list(1000)
@@ -30,13 +33,10 @@ class UserRepository:
         return user
 
     async def update_user(self, user: UserInDB) -> UserInDB:
-        user = await async_db.users.update_one(
-            {"_id": user.id}, {"$set": user.model_dump()}
-        )
+        await async_db.users.update_one({"_id": user["_id"]}, {"$set": user})
         return user
 
     async def delete_user(
         self, user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation]
-    ) -> UserInDB:
+    ) -> None:
         user = await async_db.users.delete_one({"_id": user_id})
-        return user
