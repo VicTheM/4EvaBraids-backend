@@ -96,7 +96,7 @@ To run this project locally, follow the steps below
 1. Clone the repository and `cd` into it
 
 ```bash
-git clone https://repo-url
+git clone https://github.com/VicTheM/4EvaBraids-backend.git
 cd 4EvaBraids-backend
 ```
 
