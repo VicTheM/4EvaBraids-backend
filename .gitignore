@@ -19,4 +19,7 @@ bin-release/
 
 # I don't think we'll be making use of the stuff above so...
 .env
+.vscode/
 poetry.lock
+__pycache__/
+*.pyc
