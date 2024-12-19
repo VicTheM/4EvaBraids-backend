@@ -3,6 +3,8 @@ User repository
 """
 
 from typing import Annotated
+import datetime as dt
+from datetime import datetime
 from bson import ObjectId
 from data import async_db
 from models.user import UserInDB, UserCreate
@@ -28,6 +30,8 @@ class UserRepository:
         user_dict = user.model_dump()
         user_dict["hashed_password"] = hash_password(user_dict["password"])
         del user_dict["password"]
+        user_dict["date_created"] = datetime.now(dt.timezone.utc)
+        user_dict["date_updated"] = datetime.now(dt.timezone.utc)
         create_res = await async_db.users.insert_one(user_dict)
         return await self.get_user_by_id(create_res.inserted_id)
 
@@ -92,6 +96,7 @@ class UserRepository:
         Returns:
             UserInDB: UserInDB model
         """
+        user["date_updated"] = datetime.now(dt.timezone.utc)
         await async_db.users.update_one({"_id": user["_id"]}, {"$set": user})
         return user
 
