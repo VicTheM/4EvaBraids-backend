@@ -1,5 +1,8 @@
-from typing import Annotated
+"""
+User service module
+"""
 
+from typing import Annotated
 from bson import ObjectId
 from data.user import UserRepository
 from exceptions import AlreadyExists, NotFound
@@ -10,6 +13,15 @@ user_repo = UserRepository()
 
 
 async def create_user(user: UserCreate) -> UserInDB:
+    """
+    Create a new user in the database
+
+    Args:
+        user (UserCreate): UserCreate model
+
+    Returns:
+        UserInDB: UserInDB model
+    """
     if await user_repo.get_user_by_email(
         user.email
     ) or await user_repo.get_user_by_phone_number(user.phone_number):
@@ -20,12 +32,27 @@ async def create_user(user: UserCreate) -> UserInDB:
 
 
 async def get_all_users() -> list[UserInDB]:
+    """
+    Get all users from the database
+
+    Returns:
+        list[UserInDB]: List of UserInDB models
+    """
     return await user_repo.get_all_users()
 
 
 async def get_user_by_id(
     user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation]
 ) -> UserInDB:
+    """
+    Get a user by id
+
+    Args:
+        user_id (Annotated[ObjectId, ObjectIdPydanticAnnotation]): User id
+
+    Returns:
+        UserInDB: UserInDB model
+    """
     user = await user_repo.get_user_by_id(user_id)
     if user:
         return user
@@ -33,6 +60,15 @@ async def get_user_by_id(
 
 
 async def get_user_by_phone_number(phone_number: str) -> UserInDB:
+    """
+    Get a user by phone number
+
+    Args:
+        phone_number (str): Phone number
+
+    Returns:
+        UserInDB: UserInDB model
+    """
     user = await user_repo.get_user_by_phone_number(phone_number)
     if user:
         return user
@@ -40,6 +76,15 @@ async def get_user_by_phone_number(phone_number: str) -> UserInDB:
 
 
 async def get_user_by_email(email: str) -> UserInDB:
+    """
+    Get a user by email
+
+    Args:
+        email (str): Email
+
+    Returns:
+        UserInDB: UserInDB model
+    """
     user = await user_repo.get_user_by_email(email)
     if user:
         return user
@@ -49,6 +94,16 @@ async def get_user_by_email(email: str) -> UserInDB:
 async def update_user(
     user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation], user: UserCreate
 ) -> UserInDB:
+    """
+    Update a user
+
+    Args:
+        user_id (Annotated[ObjectId, ObjectIdPydanticAnnotation]): User id
+        user (UserCreate): UserCreate model
+
+    Returns:
+        UserInDB: UserInDB model
+    """
     user_got = await get_user_by_id(user_id)
     if not user_got:
         raise NotFound(f"User with id {user_id} not found")
@@ -71,6 +126,12 @@ async def update_user(
 async def delete_user(
     user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation]
 ) -> None:
+    """
+    Delete a user
+
+    Args:
+        user_id (Annotated[ObjectId, ObjectIdPydanticAnnotation]): User id
+    """
     user = await get_user_by_id(user_id)
     if not user:
         raise NotFound(f"User with id {user_id} not found")
