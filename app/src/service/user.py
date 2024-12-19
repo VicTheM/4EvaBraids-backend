@@ -2,7 +2,7 @@ from typing import Annotated
 
 from bson import ObjectId
 from data.user import UserRepository
-from exceptions.already_exists import AlreadyExists
+from exceptions import AlreadyExists, NotFound
 from models import ObjectIdPydanticAnnotation
 from models.user import UserInDB, UserCreate, UserOut
 
@@ -26,7 +26,10 @@ async def get_all_users() -> list[UserInDB]:
 async def get_user_by_id(
     user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation]
 ) -> UserInDB:
-    return await user_repo.get_user_by_id(user_id)
+    user = await user_repo.get_user_by_id(user_id)
+    if user:
+        return user
+    raise NotFound(f"User with id {user_id} not found")
 
 
 async def get_user_by_phone_number(phone_number: str) -> UserInDB:

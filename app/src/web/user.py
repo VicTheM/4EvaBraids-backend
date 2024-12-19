@@ -24,13 +24,8 @@ async def get_all_users() -> List[UserOut]:
 @router.get("/{user_id}", response_model=UserOut)
 async def get_user_by_id(
     user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation]
-):
-    user = await user_service.get_user_by_id(user_id)
-    if user:
-        return user
-    raise HTTPException(
-        status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
-    )
+) -> UserOut:
+    return await user_controller.get_user_by_id(user_id)
 
 
 @router.get("/phone/{phone_number}", response_model=UserOut)
