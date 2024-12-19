@@ -33,7 +33,10 @@ async def get_user_by_id(
 
 
 async def get_user_by_phone_number(phone_number: str) -> UserInDB:
-    return await user_repo.get_user_by_phone_number(phone_number)
+    user = await user_repo.get_user_by_phone_number(phone_number)
+    if user:
+        return user
+    raise NotFound(f"User with phone number {phone_number} not found")
 
 
 async def get_user_by_email(email: str) -> UserInDB:
