@@ -1,3 +1,7 @@
+"""
+This file is used to connect to the MongoDB database.
+"""
+
 from motor import motor_asyncio
 from pymongo import MongoClient
 from config import settings
