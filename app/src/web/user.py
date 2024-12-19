@@ -34,13 +34,8 @@ async def get_user_by_phone_number(phone_number: str) -> UserOut:
 
 
 @router.get("/email/{email}", response_model=UserOut)
-async def get_user_by_email(email: str):
-    user = await user_service.get_user_by_email(email)
-    if user:
-        return user
-    raise HTTPException(
-        status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
-    )
+async def get_user_by_email(email: str) -> UserOut:
+    await user_controller.get_user_by_email(email)
 
 
 @router.put("/{user_id}", response_model=UserOut)

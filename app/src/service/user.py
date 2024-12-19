@@ -40,7 +40,10 @@ async def get_user_by_phone_number(phone_number: str) -> UserInDB:
 
 
 async def get_user_by_email(email: str) -> UserInDB:
-    return await user_repo.get_user_by_email(email)
+    user = await user_repo.get_user_by_email(email)
+    if user:
+        return user
+    raise NotFound(f"User with email {email} not found")
 
 
 async def update_user(
