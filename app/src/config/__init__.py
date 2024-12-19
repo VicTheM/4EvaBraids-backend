@@ -18,6 +18,7 @@ class Config:
     """
 
     def __init__(self):
+        env = os.getenv("ENV", "development")
         self._config = {
             "db": {
                 "host": os.getenv("DB_HOST", "localhost"),
@@ -27,7 +28,13 @@ class Config:
         self._config["db"][
             "uri"
         ] = f"mongodb://{self.db['host']}:{self.db['port']}/"
-        self._config["db"]["name"] = os.getenv("DB_NAME", "4eva")
+
+        if env == "production":
+            self._config["db"]["name"] = os.getenv("DB_NAME_PRODUCTION", "4eva_dev")
+        elif env == "test":
+            self._config["db"]["name"] = os.getenv("DB_NAME_TEST", "4eva_test")
+        else:
+            self._config["db"]["name"] = os.getenv("DB_NAME_DEVELOPMENT", "4eva_dev")
         self.secret_key = os.getenv("SECRET_KEY", "secret")
 
     @property
