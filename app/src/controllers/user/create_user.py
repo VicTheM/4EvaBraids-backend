@@ -1,10 +1,10 @@
 from fastapi import HTTPException, status
 from service import user as user_service
-from models.user import UserCreate
+from models.user import UserCreate, UserOut
 from exceptions import AlreadyExists
 
 
-async def create_user(user: UserCreate):
+async def create_user(user: UserCreate) -> UserOut:
     try:
         user = await user_service.create_user(user)
         return user
