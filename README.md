@@ -8,15 +8,20 @@
 4. [Features (To be implemented](#yet-to-be-implemented-features)
 5. [Technologies](#technologies)
 6. [Folder structure](#folder-structure)
+7. [Important Folders and Their Purpose](#important-folders-and-their-purpose)
 7. [Algorithms for crucial parts](#algorithms-for-crucial-parts)
 8. [Deployment](#deployment)
 9. [Contributing](#contributing)
 10. [Link to resources](#important-links)
 
+<br>
+
 ## Introduction
 
 4EvaBraids is an online hair braiding platform, where users can books appointments with with skilled braiders and get their hair made, either as home service or onsite braiding. While this is the core of it's purpose there are other functionalities and features developed to spice up the site - Read on and see more!
 ![Landing Page](docs/images/Hero%20Section.png "Landing Page")
+
+<br>
 
 ## About
 
@@ -38,6 +43,8 @@
         -   Complex automation to ease both client and braider of stress
 
 ![Features Page](docs/images/Features%20Section.png "Features Section")
+
+<br>
 
 ## Implemented Features
 
@@ -69,6 +76,8 @@ None Yet
 
 ![How to Book Page](docs/images/How%20to%20Book.png "Booking Instruction")
 
+<br>
+
 ## Technologies
 
 The following technologies were used for this project
@@ -85,9 +94,105 @@ The following technologies were used for this project
 | Playwright | To be updated | To be updated |
 | Vi test | To be updated | To be updated |
 
-## Folder Structure
+<br>
 
-{{ To be updated after first deployment }}
+## Folder Structure
+```txt
+.
+├── app
+│   ├── main.py
+│   ├── src
+│   │   ├── config
+│   │   │   ├── __init__.py
+│   │   ├── controllers
+│   │   │   └── user
+│   │   │       ├── create_user.py
+│   │   │       ├── delete_user.py
+│   │   │       ├── get_all_users.py
+│   │   │       ├── get_user_by_email.py
+│   │   │       ├── get_user_by_id.py
+│   │   │       ├── get_user_by_phone_number.py
+│   │   │       ├── __init__.py
+│   │   │       └── update_user.py
+│   │   ├── data
+│   │   │   ├── __init__.py
+│   │   │   └── user.py
+│   │   ├── exceptions
+│   │   │   ├── already_exists.py
+│   │   │   ├── __init__.py
+│   │   │   ├── not_found.py
+│   │   ├── models
+│   │   │   ├── blog.py
+│   │   │   ├── comment.py
+│   │   │   ├── __init__.py
+│   │   │   ├── __pycache__
+│   │   │   │   ├── __init__.cpython-312.pyc
+│   │   │   │   └── user.cpython-312.pyc
+│   │   │   └── user.py
+│   │   ├── service
+│   │   │   ├── __init__.py
+│   │   │   └── user.py
+│   │   ├── utils
+│   │   │   ├── crypt.py
+│   │   │   ├── __init__.py
+│   │   └── web
+│   │       ├── __init__.py
+│   │       └── user.py
+│   └── tests
+│       └── test_user
+│           ├── manual_test.py
+│           ├── test.py
+│           └── test_user_data.py
+├── docs
+│   └── images
+│       ├── Book Service.png
+│       ├── Features Section.png
+│       ├── Hero Section.png
+│       ├── How to Book.png
+│       └── README.md
+├── folder_tree.txt
+├── LICENSE.md
+├── poetry.lock
+├── pyproject.toml
+└── README.md
+```
+
+<br>
+
+## Important Folders and Their Purpose
+
+- `docs` - This folder contains documentation for the api and the project
+- `tests` - This folder contains a comprehensive test suit for the project
+- `app` - The parent folder for the api
+    - `main.py` - This is the entry point for the project
+    - `src` - Parent folder for all source code
+        - `config` - Configures the api. Has things like database settings etc
+        - `models` - Models for all object in the api are stored here
+            - blog.py - The blog model
+            - comment.py - The comment model
+            - user.py - The user model
+        - `data` - Contains code that interact directly with the DB. It defines an asynchroneous interface for the database. and it does not validate/filter data
+            - user.py - Contains a class that performs all user operation on the database
+        - `service` - The code here runs on top of the `data` folder (it call the methods from there). It performs all the data filtering and routing
+            - user.py - middlemean between the data and the controllers. `controllers` make use of `data` via `service`
+        - `controllers` - This folder is one level below the web interface. it receives from the api routes in `web` and calls the required service
+            - user - This folder contains all the user controllers
+                - create_user.py - This file contains the controller for creating a user
+                - delete_user.py - This file contains the controller for deleting a user
+                - get_all_users.py - This file contains the controller for getting all users
+                - get_user_by_email.py - This file contains the controller for getting a user by email
+                - get_user_by_id.py - This file contains the controller for getting a user by id
+                - get_user_by_phone_number.py - This file contains the controller for getting a user by phone number
+                - update_user.py - This file contains the controller for updating a user
+        - `exceptions` - User defined exceptions used throughout the project
+            - already_exists.py - This file contains the exception for when a user already exists
+            - not_found.py - This file contains the exception for when a user is not found
+        - `utils` - Utility functions used throughout the project
+            - crypt.py - This file contains the functions for encrypting and decrypting data
+        - `web` - Web interface for the api (it defines all routes for handling requests)
+            - user.py - This file contains all the routes for the user
+
+<br>
 
 ## Local Development
 
@@ -111,24 +216,38 @@ poetry install
 ```bash
 DB_HOST=your_monogodb_host
 DB_PORT=your_mongodb_port
-DB_NAME=your_mongodb_database_name
+DB_NAME_DEVELOPMENT=your_mongodb_database_name
+DB_NAME_TEST=your_mongodb_database_name
+DB_NAME_PRODUCTION=your_mongodb_database_name
 SECRET_KEY=your_secret_key
+
+# An enviroment variable called ENV will determine which database to use
+# The test suit automatically sets this to test. Default is development
 ```
 
 4. Run the project using the command below
 
 ```bash
+# Make sure to start your mongodb server if you are running it locally
+sudo systemctl start mongod
+
 export PYTHONPATH=$PWD/app/src
 poetry run uvicorn app.main:app --reload
 ```
+
+<br>
 
 ## Algorithms For Crucial Parts
 
 {{ To be updated when code is ready }}
 
+<br>
+
 ## Deployment
 
 {{ To be updated after deploying site }}
+
+<br>
 
 ## Contributing
 
@@ -136,6 +255,8 @@ Hi, we appreciate any contribution to this repository, kindly fork this repo, ad
 
 > [!TIP]
 > You can also send a mail to us on [victorychibuike121@gmail.com](victorychibuike121@gmail.com)
+
+<br>
 
 ## Important Links
 
