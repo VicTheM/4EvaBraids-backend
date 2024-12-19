@@ -52,13 +52,14 @@ async def update_user(
     user_got = await get_user_by_id(user_id)
     if not user_got:
         raise NotFound(f"User with id {user_id} not found")
-    if user_got.email != user.email and await user_repo.get_user_by_email(
+    if user_got["email"] != user.email and await user_repo.get_user_by_email(
         user.email
     ):
         raise AlreadyExists("User with this email already exists")
-    if (
-        user_got.phone_number != user.phone_number
-        and await user_repo.get_user_by_phone_number(user.phone_number)
+    if user_got[
+        "phone_number"
+    ] != user.phone_number and await user_repo.get_user_by_phone_number(
+        user.phone_number
     ):
         raise AlreadyExists("User with this phone number already exists")
     user_dict = user.model_dump()
