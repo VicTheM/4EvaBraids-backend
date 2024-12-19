@@ -69,5 +69,8 @@ async def update_user(
 
 async def delete_user(
     user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation]
-) -> UserInDB:
+) -> None:
+    user = await get_user_by_id(user_id)
+    if not user:
+        raise NotFound(f"User with id {user_id} not found")
     return await user_repo.delete_user(user_id)

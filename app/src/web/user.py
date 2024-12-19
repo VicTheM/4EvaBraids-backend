@@ -9,13 +9,11 @@ from controllers import user as user_controller
 router = APIRouter(prefix="/users", tags=["users"])
 
 
-@router.post("", response_model=UserOut, status_code=status.HTTP_201_CREATED)
 @router.post("/", response_model=UserOut, status_code=status.HTTP_201_CREATED)
 async def create_user(user: UserCreate) -> UserOut:
     return await user_controller.create_user(user)
 
 
-@router.get("", response_model=List[UserOut])
 @router.get("/", response_model=List[UserOut])
 async def get_all_users() -> List[UserOut]:
     return await user_controller.get_all_users()
@@ -51,6 +49,5 @@ async def update_user(
 )
 async def delete_user(
     user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation]
-):
-    user = await user_service.delete_user(user_id)
-    return Response(status_code=status.HTTP_204_NO_CONTENT)
+) -> None:
+    return await user_controller.delete_user(user_id)
