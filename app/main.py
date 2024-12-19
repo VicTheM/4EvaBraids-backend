@@ -1,3 +1,7 @@
+"""
+This is the main entry point for the FastAPI application.
+"""
+
 import uvicorn
 from web import create_app
 
