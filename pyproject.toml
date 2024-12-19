@@ -2,7 +2,7 @@
 name = "4evabraids-backend"
 version = "0.1.0"
 description = "The backend server for the 4evabraids backend service"
-authors = ["Ukeme Edet <ukemeedet2207@gmail.com>"]
+authors = ["Ukeme Edet <ukemeedet2207@gmail.com>", "Nwofia Victory Chibuike <victorychibuike111@gmail.com"]
 license = "MIT"
 readme = "README.md"
 
