@@ -23,3 +23,5 @@ bin-release/
 poetry.lock
 __pycache__/
 *.pyc
+.pytest_cache/
+.hypothesis/
