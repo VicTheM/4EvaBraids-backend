@@ -41,13 +41,8 @@ async def get_user_by_email(email: str) -> UserOut:
 @router.put("/{user_id}", response_model=UserOut)
 async def update_user(
     user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation], user: UserCreate
-):
-    user = await user_service.update_user(user_id, user)
-    if user:
-        return user
-    raise HTTPException(
-        status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
-    )
+) -> UserOut:
+    return await user_controller.update_user(user_id, user)
 
 
 @router.delete(
