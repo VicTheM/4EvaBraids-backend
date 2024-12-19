@@ -2,6 +2,7 @@ from typing import Annotated
 
 from bson import ObjectId
 from data.user import UserRepository
+from exceptions.already_exists import AlreadyExists
 from models import ObjectIdPydanticAnnotation
 from models.user import UserInDB, UserCreate, UserOut
 
@@ -9,6 +10,12 @@ user_repo = UserRepository()
 
 
 async def create_user(user: UserCreate) -> UserInDB:
+    if await user_repo.get_user_by_email(
+        user.email
+    ) or await user_repo.get_user_by_phone_number(user.phone_number):
+        raise AlreadyExists(
+            "User with this email or phone number already exists"
+        )
     return await user_repo.create_user(user)
 
 
