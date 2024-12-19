@@ -102,25 +102,22 @@ async def update_user(
         user (UserCreate): UserCreate model
 
     Returns:
-        UserInDB: UserInDB model
+        UserOut: UserOut model
     """
     user_got = await get_user_by_id(user_id)
-    if not user_got:
-        raise NotFound(f"User with id {user_id} not found")
-    if user_got["email"] != user.email and await user_repo.get_user_by_email(
+    if user_got.email != user.email and await user_repo.get_user_by_email(
         user.email
     ):
         raise AlreadyExists("User with this email already exists")
-    if user_got[
-        "phone_number"
-    ] != user.phone_number and await user_repo.get_user_by_phone_number(
-        user.phone_number
+    if (
+        user_got.phone_number != user.phone_number
+        and await user_repo.get_user_by_phone_number(user.phone_number)
     ):
         raise AlreadyExists("User with this phone number already exists")
-    user_dict = user.model_dump()
-    user_got.update(user_dict)
-    del user_got["password"]
-    return UserOut(**(await user_repo.update_user(user_got)))
+    user_data = user_got.model_dump()
+    user_data.update(user.model_dump(exclude={"password", "id"}))
+    user_data["_id"] = user_id
+    return UserOut(**(await user_repo.update_user(user_data)))
 
 
 async def delete_user(
