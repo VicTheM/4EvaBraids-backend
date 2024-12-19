@@ -1,5 +1,5 @@
 from bson import ObjectId
-from fastapi import APIRouter, Depends, HTTPException, status, Response
+from fastapi import APIRouter, HTTPException, status, Response
 import service.user as user_service
 from models import ObjectIdPydanticAnnotation
 from models.user import UserCreate, UserOut
@@ -11,15 +11,14 @@ router = APIRouter(prefix="/users", tags=["users"])
 
 @router.post("", response_model=UserOut, status_code=status.HTTP_201_CREATED)
 @router.post("/", response_model=UserOut, status_code=status.HTTP_201_CREATED)
-async def create_user(user: UserCreate):
+async def create_user(user: UserCreate) -> UserOut:
     return await user_controller.create_user(user)
 
 
 @router.get("", response_model=List[UserOut])
 @router.get("/", response_model=List[UserOut])
-async def get_all_users():
-    users = await user_service.get_all_users()
-    return users
+async def get_all_users() -> List[UserOut]:
+    return await user_controller.get_all_users()
 
 
 @router.get("/{user_id}", response_model=UserOut)
