@@ -1,6 +1,9 @@
+"""
+This module contains the user routes.
+"""
+
 from bson import ObjectId
-from fastapi import APIRouter, HTTPException, status, Response
-import service.user as user_service
+from fastapi import APIRouter, status
 from models import ObjectIdPydanticAnnotation
 from models.user import UserCreate, UserOut
 from typing import Annotated, List
@@ -11,11 +14,26 @@ router = APIRouter(prefix="/users", tags=["users"])
 
 @router.post("/", response_model=UserOut, status_code=status.HTTP_201_CREATED)
 async def create_user(user: UserCreate) -> UserOut:
+    """
+    Create a new user.
+
+    Args:
+        user (UserCreate): The user data required to create a new user.
+
+    Returns:
+        UserOut: The created user data.
+    """
     return await user_controller.create_user(user)
 
 
 @router.get("/", response_model=List[UserOut])
 async def get_all_users() -> List[UserOut]:
+    """
+    Retrieve all users.
+
+    Returns:
+        List[UserOut]: A list of user data.
+    """
     return await user_controller.get_all_users()
 
 
@@ -23,16 +41,43 @@ async def get_all_users() -> List[UserOut]:
 async def get_user_by_id(
     user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation]
 ) -> UserOut:
+    """
+    Retrieve a user by their ID.
+
+    Args:
+        user_id (Annotated[ObjectId, ObjectIdPydanticAnnotation]): The ID of the user to retrieve.
+
+    Returns:
+        UserOut: The user data if found.
+    """
     return await user_controller.get_user_by_id(user_id)
 
 
 @router.get("/phone/{phone_number}", response_model=UserOut)
 async def get_user_by_phone_number(phone_number: str) -> UserOut:
+    """
+    Retrieve a user by their phone number.
+
+    Args:
+        phone_number (str): The phone number of the user to retrieve.
+
+    Returns:
+        UserOut: The user information if found.
+    """
     await user_controller.get_user_by_phone_number(phone_number)
 
 
 @router.get("/email/{email}", response_model=UserOut)
 async def get_user_by_email(email: str) -> UserOut:
+    """
+    Retrieve a user by their email.
+
+    Args:
+        email (str): The email of the user to retrieve.
+
+    Returns:
+        UserOut: The user information if found.
+    """
     await user_controller.get_user_by_email(email)
 
 
@@ -40,6 +85,16 @@ async def get_user_by_email(email: str) -> UserOut:
 async def update_user(
     user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation], user: UserCreate
 ) -> UserOut:
+    """
+    Update a user.
+
+    Args:
+        user_id (Annotated[ObjectId, ObjectIdPydanticAnnotation]): The ID of the user to update.
+        user (UserCreate): The updated user data.
+
+    Returns:
+        UserOut: The updated user data.
+    """
     return await user_controller.update_user(user_id, user)
 
 
@@ -50,4 +105,10 @@ async def update_user(
 async def delete_user(
     user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation]
 ) -> None:
+    """
+    Delete a user.
+
+    Args:
+        user_id (Annotated[ObjectId, ObjectIdPydanticAnnotation]): The ID of the user to delete.
+    """
     return await user_controller.delete_user(user_id)
