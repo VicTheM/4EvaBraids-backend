@@ -1,7 +1,7 @@
 from typing import Annotated
 from bson import ObjectId
 from models import ObjectIdPydanticAnnotation
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 from datetime import datetime
 import datetime as dt
 
@@ -11,6 +11,8 @@ class CommentCreate(BaseModel):
         ..., alias="user_id"
     )
     text: str = Field(..., min_length=2, max_length=1000)
+
+    model_config = ConfigDict(from_attributes=True)
 
 
 class CommentInDB(CommentCreate):
@@ -24,12 +26,9 @@ class CommentInDB(CommentCreate):
         default_factory=lambda: datetime.now(dt.timezone.utc)
     )
 
-    class Config:
-        from_attributes = True
 
 
 class CommentOut(CommentInDB):
-    class Config:
-        from_attributes = True
+
 
     pass

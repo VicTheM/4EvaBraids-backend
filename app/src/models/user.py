@@ -4,7 +4,7 @@ from typing import Annotated
 
 from bson import ObjectId
 from models import ObjectIdPydanticAnnotation, ExcludedField
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class UserCreate(BaseModel):
@@ -13,8 +13,10 @@ class UserCreate(BaseModel):
     email: str = Field(
         ..., pattern=r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
     )
-    phone_number: str = Field(..., min_length=11, max_length=11)
+    phone_number: str = Field(..., min_length=10, max_length=15)
     password: str = Field(..., min_length=6, max_length=50)
+
+    model_config = ConfigDict(from_attributes=True)
 
 
 class UserInDB(UserCreate):
@@ -30,14 +32,8 @@ class UserInDB(UserCreate):
         default_factory=lambda: datetime.now(dt.timezone.utc)
     )
 
-    class Config:
-        from_attributes = True
-
 
 class UserOut(UserInDB):
     hashed_password: ExcludedField[str | None] = None
-
-    class Config:
-        from_attributes = True
 
     pass

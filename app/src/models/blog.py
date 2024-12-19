@@ -1,6 +1,6 @@
 from models import ObjectIdPydanticAnnotation, ExcludedField
 from models.comment import CommentInDB
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 from datetime import datetime
 import datetime as dt
 from bson import ObjectId
@@ -14,6 +14,8 @@ class BlogCreate(BaseModel):
     thumbnail: str = Field(..., min_length=2, max_length=100)
     title: str = Field(..., min_length=2, max_length=50)
     body: str = Field(..., min_length=2, max_length=10000)
+
+    model_config = ConfigDict(from_attributes=True)
 
 
 class BlogInDB(BlogCreate):
@@ -30,17 +32,11 @@ class BlogInDB(BlogCreate):
         default_factory=lambda: datetime.now(dt.timezone.utc)
     )
 
-    class Config:
-        from_attributes = True
 
 
 class BlogOut(BlogInDB):
     body: ExcludedField[str | None] = None
 
-    class Config:
-        from_attributes = True
-
 
 class FullBlogOut(BlogInDB):
-    class Config:
-        from_attributes = True
+    pass
