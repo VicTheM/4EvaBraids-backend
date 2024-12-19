@@ -12,7 +12,7 @@ from models.user import UserInDB, UserCreate, UserOut
 user_repo = UserRepository()
 
 
-async def create_user(user: UserCreate) -> UserInDB:
+async def create_user(user: UserCreate) -> UserOut:
     """
     Create a new user in the database
 
@@ -28,22 +28,22 @@ async def create_user(user: UserCreate) -> UserInDB:
         raise AlreadyExists(
             "User with this email or phone number already exists"
         )
-    return await user_repo.create_user(user)
+    return UserOut(**(await user_repo.create_user(user)))
 
 
-async def get_all_users() -> list[UserInDB]:
+async def get_all_users() -> list[UserOut]:
     """
     Get all users from the database
 
     Returns:
         list[UserInDB]: List of UserInDB models
     """
-    return await user_repo.get_all_users()
+    return [UserOut(**user) for user in await user_repo.get_all_users()]
 
 
 async def get_user_by_id(
     user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation]
-) -> UserInDB:
+) -> UserOut:
     """
     Get a user by id
 
@@ -55,11 +55,11 @@ async def get_user_by_id(
     """
     user = await user_repo.get_user_by_id(user_id)
     if user:
-        return user
+        return UserOut(**user)
     raise NotFound(f"User with id {user_id} not found")
 
 
-async def get_user_by_phone_number(phone_number: str) -> UserInDB:
+async def get_user_by_phone_number(phone_number: str) -> UserOut:
     """
     Get a user by phone number
 
@@ -71,11 +71,11 @@ async def get_user_by_phone_number(phone_number: str) -> UserInDB:
     """
     user = await user_repo.get_user_by_phone_number(phone_number)
     if user:
-        return user
+        return UserOut(**user)
     raise NotFound(f"User with phone number {phone_number} not found")
 
 
-async def get_user_by_email(email: str) -> UserInDB:
+async def get_user_by_email(email: str) -> UserOut:
     """
     Get a user by email
 
@@ -87,13 +87,13 @@ async def get_user_by_email(email: str) -> UserInDB:
     """
     user = await user_repo.get_user_by_email(email)
     if user:
-        return user
+        return UserOut(**user)
     raise NotFound(f"User with email {email} not found")
 
 
 async def update_user(
     user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation], user: UserCreate
-) -> UserInDB:
+) -> UserOut:
     """
     Update a user
 
@@ -120,7 +120,7 @@ async def update_user(
     user_dict = user.model_dump()
     user_got.update(user_dict)
     del user_got["password"]
-    return await user_repo.update_user(user_got)
+    return UserOut(**(await user_repo.update_user(user_got)))
 
 
 async def delete_user(
