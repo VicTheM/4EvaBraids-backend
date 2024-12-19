@@ -4,6 +4,7 @@ import service.user as user_service
 from models import ObjectIdPydanticAnnotation
 from models.user import UserCreate, UserOut
 from typing import Annotated, List
+from controllers import user as user_controller
 
 router = APIRouter(prefix="/users", tags=["users"])
 
@@ -11,8 +12,7 @@ router = APIRouter(prefix="/users", tags=["users"])
 @router.post("", response_model=UserOut, status_code=status.HTTP_201_CREATED)
 @router.post("/", response_model=UserOut, status_code=status.HTTP_201_CREATED)
 async def create_user(user: UserCreate):
-    user = await user_service.create_user(user)
-    return user
+    return await user_controller.create_user(user)
 
 
 @router.get("", response_model=List[UserOut])
