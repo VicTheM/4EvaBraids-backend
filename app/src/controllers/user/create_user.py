@@ -1,4 +1,4 @@
-from fastapi import HTTPException, status, Response
+from fastapi import HTTPException, status
 from service import user as user_service
 from models.user import UserCreate
 from exceptions import AlreadyExists
