@@ -1,3 +1,7 @@
+"""
+This module contains the function to get the current user from the access token.
+"""
+
 from models.user import UserOut
 from web.auth import oauth2_scheme
 import jwt
