@@ -27,8 +27,6 @@ class CommentInDB(CommentCreate):
     )
 
 
-
 class CommentOut(CommentInDB):
-
 
     pass

@@ -18,6 +18,7 @@ class Config:
     """
 
     def __init__(self):
+        # Why sould the default value be development?
         env = os.getenv("ENV", "development")
         self._config = {
             "db": {
@@ -30,11 +31,15 @@ class Config:
         ] = f"mongodb://{self.db['host']}:{self.db['port']}/"
 
         if env == "production":
-            self._config["db"]["name"] = os.getenv("DB_NAME_PRODUCTION", "4eva_dev")
+            self._config["db"]["name"] = os.getenv(
+                "DB_NAME_PRODUCTION", "4eva_dev"
+            )
         elif env == "test":
             self._config["db"]["name"] = os.getenv("DB_NAME_TEST", "4eva_test")
         else:
-            self._config["db"]["name"] = os.getenv("DB_NAME_DEVELOPMENT", "4eva_dev")
+            self._config["db"]["name"] = os.getenv(
+                "DB_NAME_DEVELOPMENT", "4eva_dev"
+            )
         self.secret_key = os.getenv("SECRET_KEY", "secret")
 
     @property

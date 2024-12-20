@@ -33,7 +33,6 @@ class BlogInDB(BlogCreate):
     )
 
 
-
 class BlogOut(BlogInDB):
     body: ExcludedField[str | None] = None
 
