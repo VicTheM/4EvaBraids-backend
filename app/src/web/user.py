@@ -3,13 +3,30 @@ This module contains the user routes.
 """
 
 from bson import ObjectId
-from fastapi import APIRouter, status
+from fastapi import APIRouter, status, Depends
 from models import ObjectIdPydanticAnnotation
 from models.user import UserCreate, UserOut
 from typing import Annotated, List
 from controllers import user as user_controller
+from .auth import oauth2_scheme
 
 router = APIRouter(prefix="/users", tags=["users"])
+
+
+@router.get("/me", response_model=UserOut)
+async def get_current_user(
+    user: UserOut = Depends(user_controller.get_current_user),
+) -> UserOut:
+    """
+    Get the current user.
+
+    Args:
+        user (UserOut): The current user.
+
+    Returns:
+        UserOut: The current user data.
+    """
+    return user
 
 
 @router.post("/", response_model=UserOut, status_code=status.HTTP_201_CREATED)
@@ -27,7 +44,7 @@ async def create_user(user: UserCreate) -> UserOut:
 
 
 @router.get("/", response_model=List[UserOut])
-async def get_all_users() -> List[UserOut]:
+async def get_all_users(token: str = Depends(oauth2_scheme)) -> List[UserOut]:
     """
     Retrieve all users.
 
