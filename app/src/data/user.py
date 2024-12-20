@@ -57,7 +57,7 @@ class UserRepository:
         Returns:
             UserInDB: UserInDB model
         """
-        user = await async_db.users.find_one({"_id": user_id})
+        user = await async_db.users.find_one({"_id": ObjectId(user_id)})
         return user
 
     async def get_user_by_phone_number(self, phone_number: str) -> UserInDB:
@@ -97,7 +97,9 @@ class UserRepository:
             UserInDB: UserInDB model
         """
         user["date_updated"] = datetime.now(dt.timezone.utc)
-        await async_db.users.update_one({"_id": user["_id"]}, {"$set": user})
+        await async_db.users.update_one(
+            {"_id": ObjectId(user["_id"])}, {"$set": user}
+        )
         return user
 
     async def delete_user(
@@ -109,4 +111,4 @@ class UserRepository:
         Args:
             user_id (Annotated[ObjectId, ObjectIdPydanticAnnotation]): User id
         """
-        await async_db.users.delete_one({"_id": user_id})
+        await async_db.users.delete_one({"_id": ObjectId(user_id)})

@@ -4,6 +4,7 @@ This module is responsible for creating the FastAPI app instance and including t
 
 from fastapi import FastAPI
 from web.user import router as user_router
+from web.auth import router as auth_router
 
 
 def create_app() -> FastAPI:
@@ -16,4 +17,6 @@ def create_app() -> FastAPI:
     app = FastAPI()
     app.router.prefix = "/api"
     app.include_router(user_router)
+    app.include_router(auth_router)
+
     return app
