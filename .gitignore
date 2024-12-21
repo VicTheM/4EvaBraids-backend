@@ -27,4 +27,7 @@ __pycache__/
 .hypothesis/
 folder_tree.txt
 .coverage
+<<<<<<< HEAD
 .envrc
+=======
+>>>>>>> f8133df (Update .gitignore, README, and pyproject.toml for improved documentation and test coverage)

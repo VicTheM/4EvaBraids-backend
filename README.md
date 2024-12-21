@@ -241,6 +241,16 @@ poetry run uvicorn app.main:app --reload
 
 <br>
 
+## Running Tests
+
+To run the tests, run the command below
+
+```bash
+poetry run pytest --cov=app
+```
+
+<br>
+
 ## Algorithms For Crucial Parts
 
 {{ To be updated when code is ready }}
