@@ -26,3 +26,4 @@ __pycache__/
 .pytest_cache/
 .hypothesis/
 folder_tree.txt
+.coverage
