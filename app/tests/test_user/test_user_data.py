@@ -1,27 +1,15 @@
 from pytest import fixture, raises
 import pytest
-import asyncio
 from models.user import UserCreate
 from models.user import UserInDB, UserCreate
-from data.user import UserRepository
-from data import async_db
-from faker import Faker
-import time
 import os
 
 os.environ["ENV"] = "test"
+from data import async_db
+from data.user import UserRepository
+from faker import Faker
 
 fake = Faker()
-
-# Fixture to avoid closure of event loop
-@pytest.fixture(scope="session")
-def event_loop():
-    try:
-        loop = asyncio.get_running_loop()
-    except RuntimeError:
-        loop = asyncio.new_event_loop()
-    yield loop
-    loop.close()
 
 
 # Create fake user data for every test
@@ -35,6 +23,7 @@ def user_data():
         password=fake.password(),
     )
 
+
 # Create a user in the database
 @fixture
 async def created_user(user_data: UserCreate):
@@ -47,7 +36,8 @@ async def created_user(user_data: UserCreate):
 
 # TESTS
 
-@pytest.mark.asyncio
+
+@pytest.mark.anyio
 async def test_get_all_users(user_data):
     user_repo = UserRepository()
 
@@ -66,7 +56,7 @@ async def test_get_all_users(user_data):
         assert user["email"] == user_data.email
 
 
-@pytest.mark.asyncio
+@pytest.mark.anyio
 async def test_create_user(user_data: UserCreate):
     """
     Test create user
@@ -87,7 +77,7 @@ async def test_create_user(user_data: UserCreate):
         assert user["password"] == user_data.password
 
 
-@pytest.mark.asyncio
+@pytest.mark.anyio
 async def test_get_user_by_id(created_user):
     """
     Test get user by ID
@@ -103,7 +93,7 @@ async def test_get_user_by_id(created_user):
     assert user["email"] == created_user["email"]
 
 
-@pytest.mark.asyncio
+@pytest.mark.anyio
 async def test_get_user_by_phone_number(created_user):
     """
     Test get user by phone number
@@ -111,7 +101,9 @@ async def test_get_user_by_phone_number(created_user):
     user_repo = UserRepository()
 
     # Fetch user by phone number
-    user = await user_repo.get_user_by_phone_number(created_user["phone_number"])
+    user = await user_repo.get_user_by_phone_number(
+        created_user["phone_number"]
+    )
 
     # Assertions
     assert user
@@ -119,7 +111,7 @@ async def test_get_user_by_phone_number(created_user):
     assert user["phone_number"] == created_user["phone_number"]
 
 
-@pytest.mark.asyncio
+@pytest.mark.anyio
 async def test_get_user_by_email(created_user):
     """
     Test get user by email
@@ -135,7 +127,7 @@ async def test_get_user_by_email(created_user):
     assert user["email"] == created_user["email"]
 
 
-@pytest.mark.asyncio
+@pytest.mark.anyio
 async def test_update_user(created_user):
     """
     Test update user
@@ -154,7 +146,7 @@ async def test_update_user(created_user):
     # print(f"Updated Time {updated_user['date_updated']}")
 
 
-@pytest.mark.asyncio
+@pytest.mark.anyio
 async def test_delete_user(created_user):
     """
     Test delete user
@@ -164,4 +156,3 @@ async def test_delete_user(created_user):
     await user_repo.delete_user(created_user["_id"])
     user = await user_repo.get_user_by_id(created_user["_id"])
     assert user is None
-
