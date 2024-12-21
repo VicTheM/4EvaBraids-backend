@@ -9,10 +9,10 @@
 5. [Technologies](#technologies)
 6. [Folder structure](#folder-structure)
 7. [Important Folders and Their Purpose](#important-folders-and-their-purpose)
-7. [Algorithms for crucial parts](#algorithms-for-crucial-parts)
-8. [Deployment](#deployment)
-9. [Contributing](#contributing)
-10. [Link to resources](#important-links)
+8. [Algorithms for crucial parts](#algorithms-for-crucial-parts)
+9. [Deployment](#deployment)
+10. [Contributing](#contributing)
+11. [Link to resources](#important-links)
 
 <br>
 
@@ -97,6 +97,7 @@ The following technologies were used for this project
 <br>
 
 ## Folder Structure
+
 ```txt
 .
 ├── app
@@ -161,40 +162,85 @@ The following technologies were used for this project
 
 ## Important Folders and Their Purpose
 
-- `docs` - This folder contains documentation for the api and the project
-- `tests` - This folder contains a comprehensive test suit for the project
-- `app` - The parent folder for the api
-    - `main.py` - This is the entry point for the project
-    - `src` - Parent folder for all source code
-        - `config` - Configures the api. Has things like database settings etc
-        - `models` - Models for all object in the api are stored here
-            - blog.py - The blog model
-            - comment.py - The comment model
-            - user.py - The user model
-        - `data` - Contains code that interact directly with the DB. It defines an asynchroneous interface for the database. and it does not validate/filter data
-            - user.py - Contains a class that performs all user operation on the database
-        - `service` - The code here runs on top of the `data` folder (it call the methods from there). It performs all the data filtering and routing
-            - user.py - middlemean between the data and the controllers. `controllers` make use of `data` via `service`
-        - `controllers` - This folder is one level below the web interface. it receives from the api routes in `web` and calls the required service
-            - user - This folder contains all the user controllers
-                - create_user.py - This file contains the controller for creating a user
-                - delete_user.py - This file contains the controller for deleting a user
-                - get_all_users.py - This file contains the controller for getting all users
-                - get_user_by_email.py - This file contains the controller for getting a user by email
-                - get_user_by_id.py - This file contains the controller for getting a user by id
-                - get_user_by_phone_number.py - This file contains the controller for getting a user by phone number
-                - update_user.py - This file contains the controller for updating a user
-        - `exceptions` - User defined exceptions used throughout the project
-            - already_exists.py - This file contains the exception for when a user already exists
-            - not_found.py - This file contains the exception for when a user is not found
-        - `utils` - Utility functions used throughout the project
-            - crypt.py - This file contains the functions for encrypting and decrypting data
-        - `web` - Web interface for the api (it defines all routes for handling requests)
-            - user.py - This file contains all the routes for the user
+-   `docs` - This folder contains documentation for the api and the project
+-   `tests` - This folder contains a comprehensive test suit for the project
+-   `app` - The parent folder for the api
+    -   `main.py` - This is the entry point for the project
+    -   `src` - Parent folder for all source code
+        -   `config` - Configures the api. Has things like database settings etc
+        -   `models` - Models for all object in the api are stored here
+            -   blog.py - The blog model
+            -   comment.py - The comment model
+            -   user.py - The user model
+        -   `data` - Contains code that interact directly with the DB. It defines an asynchroneous interface for the database. and it does not validate/filter data
+            -   user.py - Contains a class that performs all user operation on the database
+        -   `service` - The code here runs on top of the `data` folder (it call the methods from there). It performs all the data filtering and routing
+            -   user.py - middlemean between the data and the controllers. `controllers` make use of `data` via `service`
+        -   `controllers` - This folder is one level below the web interface. it receives from the api routes in `web` and calls the required service
+            -   user - This folder contains all the user controllers
+                -   create_user.py - This file contains the controller for creating a user
+                -   delete_user.py - This file contains the controller for deleting a user
+                -   get_all_users.py - This file contains the controller for getting all users
+                -   get_user_by_email.py - This file contains the controller for getting a user by email
+                -   get_user_by_id.py - This file contains the controller for getting a user by id
+                -   get_user_by_phone_number.py - This file contains the controller for getting a user by phone number
+                -   update_user.py - This file contains the controller for updating a user
+        -   `exceptions` - User defined exceptions used throughout the project
+            -   already_exists.py - This file contains the exception for when a user already exists
+            -   not_found.py - This file contains the exception for when a user is not found
+        -   `utils` - Utility functions used throughout the project
+            -   crypt.py - This file contains the functions for encrypting and decrypting data
+        -   `web` - Web interface for the api (it defines all routes for handling requests)
+            -   user.py - This file contains all the routes for the user
 
 <br>
 
 ## Local Development
+
+First, make sure you have `poetry` & `direnv` installed on your machine. If not, follow the instructions below
+
+1. Install `poetry` following the instructions [here](https://python-poetry.org/docs/#installation)
+
+2. Install `direnv` and set it up in your shell.
+
+```bash
+# For Ubuntu
+sudo apt install direnv
+eval "$(direnv hook bash)" # or zsh or fish
+
+# Create direnv config directory
+mkdir -p ~/.config/direnv
+touch ~/.config/direnv/direnvrc
+
+# Add Poetry layout function to direnvrc
+cat << 'EOF' > ~/.config/direnv/direnvrc
+layout_poetry() {
+  if [[ ! -f pyproject.toml ]]; then
+    log_error 'No pyproject.toml found. Use `poetry new` or `poetry init` to create one first.'
+    exit 2
+  fi
+
+  poetry run true
+
+  export VIRTUAL_ENV=$(poetry env info --path)
+  export POETRY_ACTIVE=1
+  PATH_add "$VIRTUAL_ENV/bin"
+}
+EOF
+```
+
+3. Create a `.envrc` file in the root directory and add the following environment variables
+
+```bash
+layout poetry
+export PYTHONPATH=$PWD/app/src
+```
+
+4. Finally, run the command below to allow `direnv` to load the environment variables
+
+```bash
+direnv allow
+```
 
 To run this project locally, follow the steps below
 
@@ -231,7 +277,6 @@ SECRET_KEY=your_secret_key
 # Make sure to start your mongodb server if you are running it locally
 sudo systemctl start mongod
 
-export PYTHONPATH=$PWD/app/src
 poetry run uvicorn app.main:app --reload
 ```
 
