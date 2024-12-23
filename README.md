@@ -197,50 +197,9 @@ The following technologies were used for this project
 
 ## Local Development
 
-First, make sure you have `poetry` & `direnv` installed on your machine. If not, follow the instructions below
+First, make sure you have `poetry`
 
-1. Install `poetry` following the instructions [here](https://python-poetry.org/docs/#installation)
-
-2. Install `direnv` and set it up in your shell.
-
-```bash
-# For Ubuntu
-sudo apt install direnv
-eval "$(direnv hook bash)" # or zsh or fish
-
-# Create direnv config directory
-mkdir -p ~/.config/direnv
-touch ~/.config/direnv/direnvrc
-
-# Add Poetry layout function to direnvrc
-cat << 'EOF' > ~/.config/direnv/direnvrc
-layout_poetry() {
-  if [[ ! -f pyproject.toml ]]; then
-    log_error 'No pyproject.toml found. Use `poetry new` or `poetry init` to create one first.'
-    exit 2
-  fi
-
-  poetry run true
-
-  export VIRTUAL_ENV=$(poetry env info --path)
-  export POETRY_ACTIVE=1
-  PATH_add "$VIRTUAL_ENV/bin"
-}
-EOF
-```
-
-3. Create a `.envrc` file in the root directory and add the following environment variables
-
-```bash
-layout poetry
-export PYTHONPATH=$PWD/app/src
-```
-
-4. Finally, run the command below to allow `direnv` to load the environment variables
-
-```bash
-direnv allow
-```
+- Install `poetry` following the instructions [here](https://python-poetry.org/docs/#installation)
 
 To run this project locally, follow the steps below
 
@@ -251,13 +210,7 @@ git clone https://github.com/VicTheM/4EvaBraids-backend.git
 cd 4EvaBraids-backend
 ```
 
-2. Install the dependencies using the command below
-
-```bash
-poetry install
-```
-
-3. Create a `.env` file in the root directory and add the following environment variables
+2. Create a `.env` file in the root directory and add the following environment variables
 
 ```bash
 DB_HOST=your_monogodb_host
@@ -269,6 +222,12 @@ SECRET_KEY=your_secret_key
 
 # An enviroment variable called ENV will determine which database to use
 # The test suit automatically sets this to test. Default is development
+```
+
+3. Run the setup script, it handles the installation of dependencies and the creation of the virtual environment
+
+```bash
+source setup.sh
 ```
 
 4. Run the project using the command below
