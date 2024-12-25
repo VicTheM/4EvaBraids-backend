@@ -1,7 +1,6 @@
 from pytest import fixture, raises
 import pytest
 from models.user import UserCreate
-from models.user import UserInDB, UserCreate
 import os
 
 os.environ["ENV"] = "test"
