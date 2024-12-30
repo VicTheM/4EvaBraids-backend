@@ -1,5 +1,5 @@
 """
-This module contains the user routes.
+User routes.
 """
 
 from bson import ObjectId
