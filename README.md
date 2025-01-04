@@ -5,7 +5,7 @@
 1. [Introduction](#introduction)
 2. [About](#about)
 3. [Features (implemented)](#implemented-features)
-4. [Features (To be implemented](#yet-to-be-implemented-features)
+4. [Features (To be implemented)](#yet-to-be-implemented-features)
 5. [Technologies](#technologies)
 6. [Folder structure](#folder-structure)
 7. [Important Folders and Their Purpose](#important-folders-and-their-purpose)
@@ -36,7 +36,7 @@
 -   Solution
     -   We provide the solution to all the above stated problems, and even more. such solutions are stated below
         -   Great professional brand (using a .com site, cool!)
-        -   Unlimited way to showcase your work (we even liked the gallery to both IG and Tiktok, so videos hosted there can be displayed nd showcased on the site while keepig our database lighter
+        -   Unlimited way to showcase your work (we even liked the gallery to both IG and Tiktok, so videos hosted there can be displayed nd showcased on the site while keepig our database lighter)
         -   Premuim booking experience
         -   Blog to improve SEO and show Ads
         -   Massive data logging and gathering information
@@ -73,6 +73,8 @@ None Yet
 6. E-Cormmerce
     - An e-store for hair accessories
     - And other fashion components
+7. Save every booking request to the database and integrate bookings with google calender
+8. Enable users to upload an image of the kind of style they will like to make
 
 ![How to Book Page](docs/images/How%20to%20Book.png "Booking Instruction")
 
@@ -249,6 +251,17 @@ To run the tests, run the command below
 poetry run pytest --cov=app
 ```
 
+## Other details
+> [!IMPORTANT]
+> The `/api/bookings/` endpoint will not work if your email and password in the `.env` file is incorrect
+> Futhermore, gmail rejects passwords and uses 2FA instead, so if you want to test this endpoint locally, create a token for your gmail account and use that as the password
+> Steps on creating a token are outlined below
+    - Go to 'Google Security settings' when you are logged in
+    - Scroll to the bottom and click `search google account`
+    - Type `App passwords` in the search bar
+    - Type in a name in the field an press `Enter`
+    - Copy the generated token and use that as your password in the `.env` file
+
 <br>
 
 ## Algorithms For Crucial Parts
@@ -259,7 +272,10 @@ poetry run pytest --cov=app
 
 ## Deployment
 
-{{ To be updated after deploying site }}
+The followig ports has to be open for any server that will run this application
+-   8000: For the FastAPI
+-   27017: For the MongoDB
+-   587: For email server
 
 <br>
 
