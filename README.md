@@ -261,6 +261,7 @@ poetry run pytest --cov=app
     - Type `App passwords` in the search bar
     - Type in a name in the field an press `Enter`
     - Copy the generated token and use that as your password in the `.env` file
+> 500 error code occurs when email fails to send
 
 <br>
 
