@@ -16,4 +16,4 @@ class EmailemailSettings(BaseModel):
     MAIL_SSL_TLS: bool = False      # This might have to chnage to True when we deploy
     USE_CREDENTIALS: bool = True
     VALIDATE_CERTS: bool = False
-    RECEIVERS_EMAIL: List[EmailStr] = ["victorychibuike111@gmail.com", "virginiangozi08@gmail.com"]
+    RECEIVERS_EMAIL: List[EmailStr] = ["victorychibuike111@gmail.com", "ukemeedet2207@gmail.com"]
