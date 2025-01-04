@@ -47,8 +47,15 @@
 <br>
 
 ## Implemented Features
+2. Booking algorithm
+    - Account is created automatically using booking information xxx (desigm changed, will now redirect to create account)
+    - Email is sent to the braiders for a booking appointment
+    - SMS is sent to the braiders for a bookig appointment xxx (was not implemented)
+    - The whatsapp contack and IG handle of braider is returned to client (To be implemented)
+3. Blog
+    - Blog with title, body and images (with links to youtube videos if needed)
+    - Comments and likes for a blog
 
-None Yet
 
 ## Yet To Be Implemented Features
 
@@ -56,14 +63,6 @@ None Yet
     - Gallery from our local database
     - Gallery from Instagram
     - Gallery from Tiktok
-2. Booking algorithm
-    - Account is created automatically using booking information
-    - Email is sent to the braiders for a booking appointment
-    - SMS is sent to the braiders for a bookig appointment
-    - The whatsapp contack and IG handle of braider is returned to client
-3. Blog
-    - Blog with title, body and images (with links to youtube videos if needed)
-    - Comments and likes for a blog
 4. Testimonials
     - Testimonials from Clients
     - Achievemens and certificates
@@ -75,6 +74,7 @@ None Yet
     - And other fashion components
 7. Save every booking request to the database and integrate bookings with google calender
 8. Enable users to upload an image of the kind of style they will like to make
+9. Users should be able to track their appointment
 
 ![How to Book Page](docs/images/How%20to%20Book.png "Booking Instruction")
 
@@ -102,6 +102,7 @@ The following technologies were used for this project
 
 ```txt
 .
+├── 4eva braids design plan.txt
 ├── app
 │   ├── main.py
 │   ├── src
@@ -109,55 +110,60 @@ The following technologies were used for this project
 │   │   │   ├── __init__.py
 │   │   ├── controllers
 │   │   │   └── user
+│   │   │       ├── authenticate_user.py
+│   │   │       ├── create_access_token.py
 │   │   │       ├── create_user.py
 │   │   │       ├── delete_user.py
 │   │   │       ├── get_all_users.py
+│   │   │       ├── get_current_user.py
 │   │   │       ├── get_user_by_email.py
 │   │   │       ├── get_user_by_id.py
 │   │   │       ├── get_user_by_phone_number.py
 │   │   │       ├── __init__.py
 │   │   │       └── update_user.py
 │   │   ├── data
+│   │   │   ├── blog.py
 │   │   │   ├── __init__.py
+│   │   │   ├── __pycache__
 │   │   │   └── user.py
 │   │   ├── exceptions
 │   │   │   ├── already_exists.py
 │   │   │   ├── __init__.py
 │   │   │   ├── not_found.py
+│   │   │   └── __pycache__
 │   │   ├── models
 │   │   │   ├── blog.py
 │   │   │   ├── comment.py
+│   │   │   ├── email.py
 │   │   │   ├── __init__.py
 │   │   │   ├── __pycache__
-│   │   │   │   ├── __init__.cpython-312.pyc
-│   │   │   │   └── user.cpython-312.pyc
+│   │   │   ├── token.py
 │   │   │   └── user.py
 │   │   ├── service
+│   │   │   ├── blog.py
 │   │   │   ├── __init__.py
+│   │   │   ├── __pycache__
 │   │   │   └── user.py
 │   │   ├── utils
 │   │   │   ├── crypt.py
 │   │   │   ├── __init__.py
+│   │   │   ├── __pycache__
+│   │   │   └── send_mail.py
 │   │   └── web
+│   │       ├── auth.py
+│   │       ├── blog.py
+│   │       ├── booking.py
 │   │       ├── __init__.py
+│   │       ├── __pycache__
 │   │       └── user.py
 │   └── tests
 │       └── test_user
-│           ├── manual_test.py
-│           ├── test.py
-│           └── test_user_data.py
-├── docs
-│   └── images
-│       ├── Book Service.png
-│       ├── Features Section.png
-│       ├── Hero Section.png
-│       ├── How to Book.png
-│       └── README.md
+│           ├── test_user_data.py
+│           └── test_user_service.py
+├── .coverage
+├── .env
+├── .envrc
 ├── folder_tree.txt
-├── LICENSE.md
-├── poetry.lock
-├── pyproject.toml
-└── README.md
 ```
 
 <br>
