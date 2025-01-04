@@ -43,6 +43,8 @@ class Config:
         self.secret_key = os.getenv("SECRET_KEY", "secret")
         self.token_algorithm = os.getenv("TOKEN_ALGORITHM", "HS256")
         self.token_expiration = int(os.getenv("TOKEN_EXPIRATION", 3600))
+        self.email = os.getenv("EMAIL", "victorychibuike121@gmail.com")
+        self.password = os.getenv("PASSWORD", "password")
 
     @property
     def db(self):
@@ -59,6 +61,14 @@ class Config:
     @property
     def ACCESS_TOKEN_EXPIRE_SECONDS(self):
         return self.token_expiration
+
+    @property
+    def EMAIL(self):
+        return self.email
+    
+    @property
+    def PASSWORD(self):
+        return self.password
 
 
 settings = Config()
