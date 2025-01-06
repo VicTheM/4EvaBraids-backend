@@ -1,4 +1,15 @@
+<p align="center">
+  <a href="https://4-eva-braids.vercel.app/"><img src="dosc/images/logo.png" alt="4evabraids"></a>
+</p>
+<p align="center">
+    <em>4evabraids, a hair braiding site</em>
+</p>
+
 # 4EvaBraids-backend
+---
+API Documentation: [Swagger doc](https://drive.google.com/drive/folders/1Vhp2GVdxZdluxA1XQzHLQzimNGElp6V6?usp=sharing)
+Deployed frontend: [4evabraids.live](https://4-eva-braids.vercel.app/)
+---
 
 ## Contents
 
@@ -19,6 +30,8 @@
 ## Introduction
 
 4EvaBraids is an online hair braiding platform, where users can books appointments with with skilled braiders and get their hair made, either as home service or onsite braiding. While this is the core of it's purpose there are other functionalities and features developed to spice up the site - Read on and see more!
+
+<br>
 ![Landing Page](docs/images/Hero%20Section.png "Landing Page")
 
 <br>
@@ -41,6 +54,7 @@
         -   Blog to improve SEO and show Ads
         -   Massive data logging and gathering information
         -   Complex automation to ease both client and braider of stress
+<br>
 
 ![Features Page](docs/images/Features%20Section.png "Features Section")
 
@@ -85,16 +99,17 @@
 The following technologies were used for this project
 | Technology | Purpose | Documentation link |
 |------------|------------|------------|
-| FastAPI | we used Python FastAPI as the web framework | to be included |
-| Mongodb | The distributed noSQL database for this site is MongoDB Atlas| To be included |
-| Redis | Redis was used for efficient caching | To be included |
-| Cloudfare R2 | Our site includes a gallery of images and videos, we used Cloudfare to store these dynamic contents | To be included |
-| Pytest | For our robust unit and itegration test | To be updated |
-| NextJS | To be updated | To be updated |
-| Tailwind CSS | To be updated | To be updated |
-| Shadcn UI | To be updated | To be updated |
-| Playwright | To be updated | To be updated |
-| Vi test | To be updated | To be updated |
+| FastAPI | we used Python FastAPI as the web framework | [FastAPI official site](#https://fastapi.tiangolo.com/) |
+| Mongodb | The distributed noSQL database for this site is MongoDB Atlas| [MongoDB motor Documentation](https://www.mongodb.com/docs/drivers/motor/) |
+| Redis | Redis was used for efficient caching | [Redis](https://redis-py.readthedocs.io/en/stable/)|
+| Cloudfare R2 | Our site includes a gallery of images and videos, we used Cloudfare to store these dynamic contents | [Cloudfare storage bucket](https://developers.cloudflare.com/r2/)|
+| Pytest | For our robust unit and itegration test | [Pytest](https://docs.pytest.org/en/stable/) |
+| NextJS | Easy creation of scalable, fast, SEO friendly react applications | https://nextjs.org/docs |
+| Tailwind CSS | Provide a utility first CSS framework, simplifying web applications styling| https://v2.tailwindcss.com/docs |
+| Shadcn UI | Streamline development by offering pre-built, themeable components that integrate seamlessly with Tailwind CSS for rapid and consistent UI design. | https://ui.shadcn.com/docs |
+| Playwright | Modern end-to-end testing framework designed for reliable automation of web applications across multiple browsers (Chromium, Firefox, and WebKit) | https://playwright.dev/docs/intro |
+| Vi test | Fast, modern testing framework for JavaScript and TypeScript, designed to work seamlessly with Vite. It focuses on speed, simplicity, and deep integration with Vite's ecosystem, making testing efficient and developer-friendly. | https://vitest.dev/guide/ |
+
 
 <br>
 
@@ -124,37 +139,31 @@ The following technologies were used for this project
 │   │   ├── data
 │   │   │   ├── blog.py
 │   │   │   ├── __init__.py
-│   │   │   ├── __pycache__
 │   │   │   └── user.py
 │   │   ├── exceptions
 │   │   │   ├── already_exists.py
 │   │   │   ├── __init__.py
 │   │   │   ├── not_found.py
-│   │   │   └── __pycache__
 │   │   ├── models
 │   │   │   ├── blog.py
 │   │   │   ├── comment.py
 │   │   │   ├── email.py
 │   │   │   ├── __init__.py
-│   │   │   ├── __pycache__
 │   │   │   ├── token.py
 │   │   │   └── user.py
 │   │   ├── service
 │   │   │   ├── blog.py
 │   │   │   ├── __init__.py
-│   │   │   ├── __pycache__
 │   │   │   └── user.py
 │   │   ├── utils
 │   │   │   ├── crypt.py
 │   │   │   ├── __init__.py
-│   │   │   ├── __pycache__
 │   │   │   └── send_mail.py
 │   │   └── web
 │   │       ├── auth.py
 │   │       ├── blog.py
 │   │       ├── booking.py
 │   │       ├── __init__.py
-│   │       ├── __pycache__
 │   │       └── user.py
 │   └── tests
 │       └── test_user
@@ -259,21 +268,28 @@ poetry run pytest --cov=app
 
 ## Other details
 > [!IMPORTANT]
-> The `/api/bookings/` endpoint will not work if your email and password in the `.env` file is incorrect
-> Futhermore, gmail rejects passwords and uses 2FA instead, so if you want to test this endpoint locally, create a token for your gmail account and use that as the password
-> Steps on creating a token are outlined below
+> - The `/api/bookings/` endpoint will not work if your email and password in the `.env` file is incorrect
+> - Futhermore, gmail rejects passwords and uses 2FA instead, so if you want to test this endpoint locally, create a token for your gmail account and use that as the password
+> - Steps on creating a token are outlined below
     - Go to 'Google Security settings' when you are logged in
     - Scroll to the bottom and click `search google account`
     - Type `App passwords` in the search bar
     - Type in a name in the field an press `Enter`
     - Copy the generated token and use that as your password in the `.env` file
-> 500 error code occurs when email fails to send
+> - 500 error code occurs when email fails to send
 
 <br>
 
 ## Algorithms For Crucial Parts
 
-{{ To be updated when code is ready }}
+1. Authentication:
+       - The only unauthenticated endpoint is the registration of new users. jwt token was used for authentication
+2. Booking Algorithm:
+       - When a client books an appointment, the details get sent to the chief braier's email address for follow up
+3. Whatsapp & IG:
+        - When clients decide to chat via a social app instaed, we keep a count of the number of times either whatsapp or IG is clicked so e can know how many clients were gotten via that means
+4. Blog:
+       - For now, the blog is a basic writeup with one topic, body and many comments
 
 <br>
 
