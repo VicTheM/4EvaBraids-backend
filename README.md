@@ -10,8 +10,6 @@
 #### Deployed frontend: [4evabraids.live](https://4-eva-braids.vercel.app/)
 ---
 
-# 4evabraids
-
 ## Contents
 
 1. [Introduction](#introduction)
@@ -33,6 +31,7 @@
 4EvaBraids is an online hair braiding platform, where users can books appointments with with skilled braiders and get their hair made, either as home service or onsite braiding. While this is the core of it's purpose there are other functionalities and features developed to spice up the site - Read on and see more!
 
 <br>
+
 ![Landing Page](docs/images/Hero%20Section.png "Landing Page")
 
 <br>
