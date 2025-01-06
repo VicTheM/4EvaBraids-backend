@@ -6,8 +6,8 @@
 </p>
 
 ---
-API Documentation: [Swagger doc](https://drive.google.com/drive/folders/1Vhp2GVdxZdluxA1XQzHLQzimNGElp6V6?usp=sharing) <br>
-Deployed frontend: [4evabraids.live](https://4-eva-braids.vercel.app/)
+#### API Documentation: [Swagger doc](https://drive.google.com/drive/folders/1Vhp2GVdxZdluxA1XQzHLQzimNGElp6V6?usp=sharing) <br>
+#### Deployed frontend: [4evabraids.live](https://4-eva-braids.vercel.app/)
 ---
 
 # 4evabraids
