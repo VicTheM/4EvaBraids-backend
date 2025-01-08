@@ -1,11 +1,11 @@
 <p align="center">
   <a href="https://4-eva-braids.vercel.app/">
-    <img src="docs/images/logo.png" alt="4evabraids" width="200" height="100">
+    <img src="docs/images/logo.png" alt="4evabraids" width="300" height="150">
   </a>
 </p>
 
 <p align="center">
-    <em>4evabraids, a hair braiding site</em>
+    <em>A site that links clients to braiders</em>
 </p>
 
 ---
