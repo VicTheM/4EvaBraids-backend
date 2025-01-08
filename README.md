@@ -1,12 +1,11 @@
 <p align="center">
-  <a href="https://4-eva-braids.vercel.app/"><img src="dosc/images/logo.png" alt="4evabraids"></a>
+  <a href="https://4-eva-braids.vercel.app/"><img src="docs/images/logo.png" alt="4evabraids"></a>
 </p>
 <p align="center">
     <em>4evabraids, a hair braiding site</em>
 </p>
 
 ---
-#### API Documentation: [Swagger doc](https://drive.google.com/drive/folders/1Vhp2GVdxZdluxA1XQzHLQzimNGElp6V6?usp=sharing) <br>
 #### Deployed frontend: [4evabraids.live](https://4-eva-braids.vercel.app/)
 ---
 
@@ -241,7 +240,7 @@ SECRET_KEY=your_secret_key
 # The test suit automatically sets this to test. Default is development
 ```
 
-3. Run the setup script, it handles the installation of dependencies and the creation of the virtual environment
+3. Run the setup script, it handles the installation of dependencies and the creation of the virtual environment. if you are not on a dedicated server, please comment out the line that creates a system service for auto startup
 
 ```bash
 source setup.sh
@@ -254,6 +253,9 @@ source setup.sh
 sudo systemctl start mongod
 
 poetry run uvicorn app.main:app --reload
+
+# If you are on our vm on azure, then use
+suod systemctl start 4eva
 ```
 
 <br>
@@ -295,10 +297,10 @@ poetry run pytest --cov=app
 
 ## Deployment
 
-The followig ports has to be open for any server that will run this application
--   8000: For the FastAPI
--   27017: For the MongoDB
--   587: For email server
+We deployed in an Ubuntu 22.04 Jammy virtual machine on Microsoft Azure server <br>
+Nginx was used ro reverse proxy `https` request on port `443` to an instance of the running api on port `8000`. <br>
+Mongodb runs locally on port `27017` and email client sends mail to port `587` <br>
+A system service was written for the api, to start the app automaticaly on power up of the machine.
 
 <br>
 
@@ -315,4 +317,5 @@ Hi, we appreciate any contribution to this repository, kindly fork this repo, ad
 
 1. [Google drive](https://drive.google.com/drive/folders/1nkLk7gpuJ2goUGwwKMx_iF3ZcW3887rJ?usp=sharing)
 2. [Project pitch](https://docs.google.com/presentation/d/1FpoadYXboSWbsJNq1_Om3yOAnf_qRi40m4ICDwHJI_4/edit?usp=sharing)
-3. Frontend Repository
+3. [Frontend Repository](https://github.com/Enielect/4Eva-Braids)
+4. [API Documentation](https://drive.google.com/drive/folders/1Vhp2GVdxZdluxA1XQzHLQzimNGElp6V6?usp=sharing)
