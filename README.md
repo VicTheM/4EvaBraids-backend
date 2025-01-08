@@ -29,6 +29,7 @@
 <br>
 
 ## Introduction
+--
 
 4EvaBraids is an online hair braiding platform, where users can books appointments with with skilled braiders and get their hair made, either as home service or onsite braiding. While this is the core of it's purpose there are other functionalities and features developed to spice up the site - Read on and see more!
 
@@ -97,6 +98,7 @@
 <br>
 
 ## Technologies
+--
 
 The following technologies were used for this project
 | Technology | Purpose | Documentation link |
@@ -116,6 +118,7 @@ The following technologies were used for this project
 <br>
 
 ## Folder Structure
+--
 
 ```txt
 .
@@ -180,6 +183,7 @@ The following technologies were used for this project
 <br>
 
 ## Important Folders and Their Purpose
+--
 
 -   `docs` - This folder contains documentation for the api and the project
 -   `tests` - This folder contains a comprehensive test suit for the project
@@ -214,13 +218,12 @@ The following technologies were used for this project
 
 <br>
 
+![Booking page](docs/images/Book%20Service.png "Booking page")
+
+<br>
+
 ## Local Development
-
-First, make sure you have `poetry`
-
-- Install `poetry` following the instructions [here](https://python-poetry.org/docs/#installation)
-
-To run this project locally, follow the steps below
+--
 
 1. Clone the repository and `cd` into it
 
@@ -243,23 +246,31 @@ SECRET_KEY=your_secret_key
 # The test suit automatically sets this to test. Default is development
 ```
 
-3. Run the setup script, it handles the installation of dependencies and the creation of the virtual environment. if you are not on a dedicated server, please comment out the line that creates a system service for auto startup
+3. Run the setup script, it does the following
+   - setsup python
+   - install and starts mongodb
+   - install poetry
+   - install all dependencies
+   - sets up the enviroment
+   - create a system service for auto startup
 
 ```bash
 source setup.sh
 ```
 
-4. Run the project using the command below
+4. service would be started automatically. Later on, if you want to start or stop the service
 
 ```bash
-# Make sure to start your mongodb server if you are running it locally
-sudo systemctl start mongod
-
-poetry run uvicorn app.main:app --reload
-
-# If you are on our vm on azure, then use
-suod systemctl start 4eva
+sudo systemctl start 4eva
+sudo systemctl stop 4eva
 ```
+
+Alternatively, if you dont want to use systemctl
+```bash
+export PYTHONPATH=/home/evabraids/4EvaBraids-backend/app/src
+poetry run uvicorn app.main:app --reload
+```
+note that starting the app directly does not start nginx, so you can access it on ```localhost:8000```
 
 <br>
 
