@@ -32,8 +32,7 @@ async def create_appointment(background_tasks: BackgroundTasks, location: str = 
     userMessage = None
 
     if not user:
-        user = UserCreate(first_name=fullname.split()[0], last_name=fullname.pop(),
-                             email=email, phone_number=phone_number, password="password")
+        user = UserCreate(first_name=fullname.split()[0], lastname = " ".join(fullname.split()[1:]) if len(fullname.split()) > 1 else "", email=email, phone_number=phone_number, password="password")
         user = await user_controller.create_user(user)
 
         userMessage = f'''
