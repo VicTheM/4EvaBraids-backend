@@ -24,13 +24,15 @@ async def create_appointment(background_tasks: BackgroundTasks, location: str = 
     
     try:
         user = await user_controller.get_user_by_email(email)
+        if not user:
+            user = await user_controller.get_user_by_phone_number(phone_number)
     except Exception as e:
-        user = await user_controller.get_user_by_phone_number(phone_number)
+        user = None
     
     userMessage = None
 
     if not user:
-        user = UserCreate(first_name=fullname.split()[0], last_name=" ".join(fullname.split()[1:]),
+        user = UserCreate(first_name=fullname.split()[0], last_name=fullname.pop(),
                              email=email, phone_number=phone_number, password="password")
         user = await user_controller.create_user(user)
 
