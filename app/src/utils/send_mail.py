@@ -21,10 +21,10 @@ conf = ConnectionConfig(
     VALIDATE_CERTS = emailSettings.VALIDATE_CERTS,
 )
 
-async def send_email(background_tasks: BackgroundTasks, subject: str, content: str):
+async def send_email(background_tasks: BackgroundTasks, subject: str, content: str, recipients: list = emailSettings.RECEIVERS_EMAIL):
     message = MessageSchema(
         subject=subject,
-        recipients=[*emailSettings.RECEIVERS_EMAIL],
+        recipients=recipients,
         body=content,
         subtype="plain"
     )

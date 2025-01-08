@@ -9,6 +9,7 @@ from fastapi import HTTPException, Depends, status
 from controllers import user as user_controller
 import jwt
 from config import settings
+from models.user import UserCreate
 
 router = APIRouter(prefix="/bookings", tags=["bookings"])
 
@@ -16,30 +17,56 @@ router = APIRouter(prefix="/bookings", tags=["bookings"])
 @router.post("/")
 async def create_appointment(background_tasks: BackgroundTasks, location: str = "unknown",
                              style: str = "Unknown", date: str = "01-01-2025", time: str = "00.00am",
-                             token: str = Depends(oauth2_scheme)):
+                             fullname: str = "Unknown", email: str = "fake@gmail.com", phone_number: str = "Unknown"):
     """
-    Create an appointment. Get redirected for authentication if not loggedin
+    Create an appointment. Automatically create account if not logged in
     """
-
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
-    )
-    try:
-        payload = jwt.decode(
-            token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM]
-        )
-        user_id = payload.get("user_id")
-        if user_id is None:
-            raise credentials_exception
-    except jwt.PyJWTError:
-        raise credentials_exception
     
-    user = await user_controller.get_user_by_id(user_id)
-    if user is None:
-        raise credentials_exception
+    try:
+        user = await user_controller.get_user_by_email(email)
+    except Exception as e:
+        user = await user_controller.get_user_by_phone_number(phone_number)
+    
+    userMessage = None
 
-    # Build up the message to be sent
+    if not user:
+        user = UserCreate(first_name=fullname.split()[0], last_name=" ".join(fullname.split()[1:]),
+                             email=email, phone_number=phone_number, password="password")
+        user = await user_controller.create_user(user)
+
+        userMessage = f'''
+        Hello {user.first_name}, you have been successfully booked an appiontment with the following details:
+        Location: {location}
+        Time: {time}
+
+        We created an account for you to ease booking process in the future, here is your login details:
+        Email: {email}
+        Password: password
+        '''
+
+        try:
+            await send_email(background_tasks, "Account Created", userMessage, recipients=[email])
+        except Exception as e:
+            pass
+
+
+    # Send booking details back to the user
+    if not userMessage:
+        userMessage = f'''
+        Hello {user.first_name}, you have been successfully booked an appiontment with the following details:
+        Location: {location}
+        Time: {time}
+
+        We will reach out to you shortly via calls or Whatsapp
+        '''
+
+        try:
+            await send_email(background_tasks, "Appointment Booked", userMessage, recipients=[email])
+        except Exception as e:
+            pass
+
+    
+    # Build up the message to be sent to braider
     subject = "You have a new appointment"
     content = f'''
     Hello, you have a booking with the following details:
