@@ -94,7 +94,7 @@ Type=simple
 WorkingDirectory=/home/evabraids/4EvaBraids-backend
 Environment="PATH=$(poetry env info --path)/bin"
 Environment="PYTHONPATH=/home/evabraids/4EvaBraids-backend/app/src"
-ExecStart=$(poetry run which uvicorn) app.main:app --host 0.0.0.0 --port 8000 --workers 4 --uds unix:/tmp/4eva.sock
+ExecStart=$(poetry run which uvicorn) app.main:app --host 0.0.0.0 --port 8000 --workers 4 --log-level debug
 Restart=always
 RestartSec=3
 
@@ -116,11 +116,11 @@ echo "Creating Nginx config file..."
 sudo tee /etc/nginx/sites-available/4eva >/dev/null <<EOF
 server {
     listen 80;
-    server_name 4evabraids.com www.4evabraids.com;
+    server_name 4evabraids.live api.4evabraids.live;
 
     location / {
         include proxy_params;
-        proxy_pass http://unix:/tmp/4eva.sock;
+        proxy_pass http://127.0.0.1:8000;
     }
 }
 EOF
