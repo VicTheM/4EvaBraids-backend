@@ -6,11 +6,12 @@ authors = [
     "Ukeme Edet <ukemeedet2207@gmail.com>",
     "Nwofia Victory Chibuike <victorychibuike111@gmail.com",
 ]
+package-mode = false
 license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.10"
 fastapi = { extras = ["standard"], version = "^0.115.6" }
 motor = "^3.6.0"
 pydantic-mongo = "^2.3.0"
