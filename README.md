@@ -1,6 +1,9 @@
 <p align="center">
-  <a href="https://4-eva-braids.vercel.app/"><img src="docs/images/logo.png" alt="4evabraids"></a>
+  <a href="https://4-eva-braids.vercel.app/">
+    <img src="docs/images/logo.png" alt="4evabraids" width="200" height="100">
+  </a>
 </p>
+
 <p align="center">
     <em>4evabraids, a hair braiding site</em>
 </p>
