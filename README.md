@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-    <em>A site that links clients to braiders</em>
+    <em>A hair braiding site</em>
 </p>
 
 ---
@@ -29,7 +29,6 @@
 <br>
 
 ## Introduction
---
 
 4EvaBraids is an online hair braiding platform, where users can books appointments with with skilled braiders and get their hair made, either as home service or onsite braiding. While this is the core of it's purpose there are other functionalities and features developed to spice up the site - Read on and see more!
 
@@ -98,7 +97,6 @@
 <br>
 
 ## Technologies
---
 
 The following technologies were used for this project
 | Technology | Purpose | Documentation link |
@@ -118,7 +116,6 @@ The following technologies were used for this project
 <br>
 
 ## Folder Structure
---
 
 ```txt
 .
@@ -183,7 +180,6 @@ The following technologies were used for this project
 <br>
 
 ## Important Folders and Their Purpose
---
 
 -   `docs` - This folder contains documentation for the api and the project
 -   `tests` - This folder contains a comprehensive test suit for the project
@@ -223,7 +219,6 @@ The following technologies were used for this project
 <br>
 
 ## Local Development
---
 
 1. Clone the repository and `cd` into it
 
