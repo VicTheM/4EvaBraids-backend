@@ -1,27 +1,32 @@
+"""THIS FILE IS NOT PART OF THE APP, BUT STORED HERE
+TO BE USED WHEN NEEDED
+"""
+
 from fastapi import FastAPI, Request
 import logging
-import json
 
 app = FastAPI()
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
+logging.basicConfig(
+    level=logging.INFO, 
+    format="%(asctime)s - %(message)s", 
+    handlers=[logging.StreamHandler()]
+)
 
 @app.middleware("http")
 async def log_request_response(request: Request, call_next):
-    # Log request details
-    logging.info(f"Incoming request: {request.method} {request.url}")
-    logging.info(f"Headers: {dict(request.headers)}")
-    
-    # Read and log the body (need to clone it as the body stream can be read only once)
+
+    # Collect request details
+    method = request.method
+    url = request.url
+    headers = dict(request.headers)
     body = await request.body()
-    if body:
-        logging.info(f"Body: {body.decode('utf-8')}")
-    
-    # Process the request and get the response
+    body_str = body.decode("utf-8") if body else "No Body"
+
+    logging.info(f"Request: {method} {url} | Headers: {headers} | Body: {body_str}")
+
     response = await call_next(request)
-    
-    # Log response details
-    logging.info(f"Response status: {response.status_code}")
-    
+    logging.info(f"Response: Status {response.status_code} for {method} {url}")
+
     return response
