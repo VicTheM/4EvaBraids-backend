@@ -1,18 +1,12 @@
-"""
-This is the main entry point for the FastAPI application.
-"""
-
-import uvicorn
-from web import create_app
-from fastapi import Request
+from fastapi import FastAPI, Request
 import logging
+import json
+
+app = FastAPI()
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
 
-app = create_app()
-
-# Debugging
 @app.middleware("http")
 async def log_request_response(request: Request, call_next):
     # Log request details
@@ -31,7 +25,3 @@ async def log_request_response(request: Request, call_next):
     logging.info(f"Response status: {response.status_code}")
     
     return response
-
-
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
