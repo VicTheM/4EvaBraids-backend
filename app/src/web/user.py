@@ -1,5 +1,5 @@
 """
-This module contains the user routes.
+User routes.
 """
 
 from bson import ObjectId
@@ -56,7 +56,8 @@ async def get_all_users(token: str = Depends(oauth2_scheme)) -> List[UserOut]:
 
 @router.get("/{user_id}", response_model=UserOut)
 async def get_user_by_id(
-    user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation]
+    user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation],
+    user: UserOut = Depends(user_controller.get_current_user),
 ) -> UserOut:
     """
     Retrieve a user by their ID.
@@ -71,7 +72,10 @@ async def get_user_by_id(
 
 
 @router.get("/phone/{phone_number}", response_model=UserOut)
-async def get_user_by_phone_number(phone_number: str) -> UserOut:
+async def get_user_by_phone_number(
+    phone_number: str,
+    user: UserOut = Depends(user_controller.get_current_user),
+) -> UserOut:
     """
     Retrieve a user by their phone number.
 
@@ -85,7 +89,9 @@ async def get_user_by_phone_number(phone_number: str) -> UserOut:
 
 
 @router.get("/email/{email}", response_model=UserOut)
-async def get_user_by_email(email: str) -> UserOut:
+async def get_user_by_email(
+    email: str, user: UserOut = Depends(user_controller.get_current_user)
+) -> UserOut:
     """
     Retrieve a user by their email.
 
@@ -100,7 +106,9 @@ async def get_user_by_email(email: str) -> UserOut:
 
 @router.put("/{user_id}", response_model=UserOut)
 async def update_user(
-    user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation], user: UserCreate
+    user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation],
+    user_update: UserCreate,
+    user: UserOut = Depends(user_controller.get_current_user),
 ) -> UserOut:
     """
     Update a user.
@@ -120,7 +128,8 @@ async def update_user(
     status_code=status.HTTP_204_NO_CONTENT,
 )
 async def delete_user(
-    user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation]
+    user_id: Annotated[ObjectId, ObjectIdPydanticAnnotation],
+    user: UserOut = Depends(user_controller.get_current_user),
 ) -> None:
     """
     Delete a user.

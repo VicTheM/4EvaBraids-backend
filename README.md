@@ -1,11 +1,23 @@
-# 4EvaBraids-backend
+<p align="center">
+  <a href="https://4-eva-braids.vercel.app/">
+    <img src="docs/images/logo.png" alt="4evabraids" width="300" height="150">
+  </a>
+</p>
+
+<p align="center">
+    <em>A hair braiding site</em>
+</p>
+
+---
+#### Deployed frontend: [4evabraids.live](https://4-eva-braids.vercel.app/)
+---
 
 ## Contents
 
 1. [Introduction](#introduction)
 2. [About](#about)
 3. [Features (implemented)](#implemented-features)
-4. [Features (To be implemented](#yet-to-be-implemented-features)
+4. [Features (To be implemented)](#yet-to-be-implemented-features)
 5. [Technologies](#technologies)
 6. [Folder structure](#folder-structure)
 7. [Important Folders and Their Purpose](#important-folders-and-their-purpose)
@@ -19,6 +31,9 @@
 ## Introduction
 
 4EvaBraids is an online hair braiding platform, where users can books appointments with with skilled braiders and get their hair made, either as home service or onsite braiding. While this is the core of it's purpose there are other functionalities and features developed to spice up the site - Read on and see more!
+
+<br>
+
 ![Landing Page](docs/images/Hero%20Section.png "Landing Page")
 
 <br>
@@ -36,19 +51,27 @@
 -   Solution
     -   We provide the solution to all the above stated problems, and even more. such solutions are stated below
         -   Great professional brand (using a .com site, cool!)
-        -   Unlimited way to showcase your work (we even liked the gallery to both IG and Tiktok, so videos hosted there can be displayed nd showcased on the site while keepig our database lighter
+        -   Unlimited way to showcase your work (we even liked the gallery to both IG and Tiktok, so videos hosted there can be displayed nd showcased on the site while keepig our database lighter)
         -   Premuim booking experience
         -   Blog to improve SEO and show Ads
         -   Massive data logging and gathering information
         -   Complex automation to ease both client and braider of stress
+<br>
 
 ![Features Page](docs/images/Features%20Section.png "Features Section")
 
 <br>
 
 ## Implemented Features
+2. Booking algorithm
+    - Account is created automatically using booking information xxx (desigm changed, will now redirect to create account)
+    - Email is sent to the braiders for a booking appointment
+    - SMS is sent to the braiders for a bookig appointment xxx (was not implemented)
+    - The whatsapp contack and IG handle of braider is returned to client (To be implemented)
+3. Blog
+    - Blog with title, body and images (with links to youtube videos if needed)
+    - Comments and likes for a blog
 
-None Yet
 
 ## Yet To Be Implemented Features
 
@@ -56,14 +79,6 @@ None Yet
     - Gallery from our local database
     - Gallery from Instagram
     - Gallery from Tiktok
-2. Booking algorithm
-    - Account is created automatically using booking information
-    - Email is sent to the braiders for a booking appointment
-    - SMS is sent to the braiders for a bookig appointment
-    - The whatsapp contack and IG handle of braider is returned to client
-3. Blog
-    - Blog with title, body and images (with links to youtube videos if needed)
-    - Comments and likes for a blog
 4. Testimonials
     - Testimonials from Clients
     - Achievemens and certificates
@@ -73,6 +88,9 @@ None Yet
 6. E-Cormmerce
     - An e-store for hair accessories
     - And other fashion components
+7. Save every booking request to the database and integrate bookings with google calender
+8. Enable users to upload an image of the kind of style they will like to make
+9. Users should be able to track their appointment
 
 ![How to Book Page](docs/images/How%20to%20Book.png "Booking Instruction")
 
@@ -83,16 +101,17 @@ None Yet
 The following technologies were used for this project
 | Technology | Purpose | Documentation link |
 |------------|------------|------------|
-| FastAPI | we used Python FastAPI as the web framework | to be included |
-| Mongodb | The distributed noSQL database for this site is MongoDB Atlas| To be included |
-| Redis | Redis was used for efficient caching | To be included |
-| Cloudfare R2 | Our site includes a gallery of images and videos, we used Cloudfare to store these dynamic contents | To be included |
-| Pytest | For our robust unit and itegration test | To be updated |
-| NextJS | To be updated | To be updated |
-| Tailwind CSS | To be updated | To be updated |
-| Shadcn UI | To be updated | To be updated |
-| Playwright | To be updated | To be updated |
-| Vi test | To be updated | To be updated |
+| FastAPI | we used Python FastAPI as the web framework | [FastAPI official site](#https://fastapi.tiangolo.com/) |
+| Mongodb | The distributed noSQL database for this site is MongoDB Atlas| [MongoDB motor Documentation](https://www.mongodb.com/docs/drivers/motor/) |
+| Redis | Redis was used for efficient caching | [Redis](https://redis-py.readthedocs.io/en/stable/)|
+| Cloudfare R2 | Our site includes a gallery of images and videos, we used Cloudfare to store these dynamic contents | [Cloudfare storage bucket](https://developers.cloudflare.com/r2/)|
+| Pytest | For our robust unit and itegration test | [Pytest](https://docs.pytest.org/en/stable/) |
+| NextJS | Easy creation of scalable, fast, SEO friendly react applications | https://nextjs.org/docs |
+| Tailwind CSS | Provide a utility first CSS framework, simplifying web applications styling| https://v2.tailwindcss.com/docs |
+| Shadcn UI | Streamline development by offering pre-built, themeable components that integrate seamlessly with Tailwind CSS for rapid and consistent UI design. | https://ui.shadcn.com/docs |
+| Playwright | Modern end-to-end testing framework designed for reliable automation of web applications across multiple browsers (Chromium, Firefox, and WebKit) | https://playwright.dev/docs/intro |
+| Vi test | Fast, modern testing framework for JavaScript and TypeScript, designed to work seamlessly with Vite. It focuses on speed, simplicity, and deep integration with Vite's ecosystem, making testing efficient and developer-friendly. | https://vitest.dev/guide/ |
+
 
 <br>
 
@@ -100,6 +119,7 @@ The following technologies were used for this project
 
 ```txt
 .
+├── 4eva braids design plan.txt
 ├── app
 │   ├── main.py
 │   ├── src
@@ -107,15 +127,19 @@ The following technologies were used for this project
 │   │   │   ├── __init__.py
 │   │   ├── controllers
 │   │   │   └── user
+│   │   │       ├── authenticate_user.py
+│   │   │       ├── create_access_token.py
 │   │   │       ├── create_user.py
 │   │   │       ├── delete_user.py
 │   │   │       ├── get_all_users.py
+│   │   │       ├── get_current_user.py
 │   │   │       ├── get_user_by_email.py
 │   │   │       ├── get_user_by_id.py
 │   │   │       ├── get_user_by_phone_number.py
 │   │   │       ├── __init__.py
 │   │   │       └── update_user.py
 │   │   ├── data
+│   │   │   ├── blog.py
 │   │   │   ├── __init__.py
 │   │   │   └── user.py
 │   │   ├── exceptions
@@ -125,37 +149,32 @@ The following technologies were used for this project
 │   │   ├── models
 │   │   │   ├── blog.py
 │   │   │   ├── comment.py
+│   │   │   ├── email.py
 │   │   │   ├── __init__.py
-│   │   │   ├── __pycache__
-│   │   │   │   ├── __init__.cpython-312.pyc
-│   │   │   │   └── user.cpython-312.pyc
+│   │   │   ├── token.py
 │   │   │   └── user.py
 │   │   ├── service
+│   │   │   ├── blog.py
 │   │   │   ├── __init__.py
 │   │   │   └── user.py
 │   │   ├── utils
 │   │   │   ├── crypt.py
 │   │   │   ├── __init__.py
+│   │   │   └── send_mail.py
 │   │   └── web
+│   │       ├── auth.py
+│   │       ├── blog.py
+│   │       ├── booking.py
 │   │       ├── __init__.py
 │   │       └── user.py
 │   └── tests
 │       └── test_user
-│           ├── manual_test.py
-│           ├── test.py
-│           └── test_user_data.py
-├── docs
-│   └── images
-│       ├── Book Service.png
-│       ├── Features Section.png
-│       ├── Hero Section.png
-│       ├── How to Book.png
-│       └── README.md
+│           ├── test_user_data.py
+│           └── test_user_service.py
+├── .coverage
+├── .env
+├── .envrc
 ├── folder_tree.txt
-├── LICENSE.md
-├── poetry.lock
-├── pyproject.toml
-└── README.md
 ```
 
 <br>
@@ -195,54 +214,11 @@ The following technologies were used for this project
 
 <br>
 
+![Booking page](docs/images/Book%20Service.png "Booking page")
+
+<br>
+
 ## Local Development
-
-First, make sure you have `poetry` & `direnv` installed on your machine. If not, follow the instructions below
-
-1. Install `poetry` following the instructions [here](https://python-poetry.org/docs/#installation)
-
-2. Install `direnv` and set it up in your shell.
-
-```bash
-# For Ubuntu
-sudo apt install direnv
-eval "$(direnv hook bash)" # or zsh or fish
-
-# Create direnv config directory
-mkdir -p ~/.config/direnv
-touch ~/.config/direnv/direnvrc
-
-# Add Poetry layout function to direnvrc
-cat << 'EOF' > ~/.config/direnv/direnvrc
-layout_poetry() {
-  if [[ ! -f pyproject.toml ]]; then
-    log_error 'No pyproject.toml found. Use `poetry new` or `poetry init` to create one first.'
-    exit 2
-  fi
-
-  poetry run true
-
-  export VIRTUAL_ENV=$(poetry env info --path)
-  export POETRY_ACTIVE=1
-  PATH_add "$VIRTUAL_ENV/bin"
-}
-EOF
-```
-
-3. Create a `.envrc` file in the root directory and add the following environment variables
-
-```bash
-layout poetry
-export PYTHONPATH=$PWD/app/src
-```
-
-4. Finally, run the command below to allow `direnv` to load the environment variables
-
-```bash
-direnv allow
-```
-
-To run this project locally, follow the steps below
 
 1. Clone the repository and `cd` into it
 
@@ -251,13 +227,7 @@ git clone https://github.com/VicTheM/4EvaBraids-backend.git
 cd 4EvaBraids-backend
 ```
 
-2. Install the dependencies using the command below
-
-```bash
-poetry install
-```
-
-3. Create a `.env` file in the root directory and add the following environment variables
+2. Create a `.env` file in the root directory and add the following environment variables
 
 ```bash
 DB_HOST=your_monogodb_host
@@ -271,26 +241,75 @@ SECRET_KEY=your_secret_key
 # The test suit automatically sets this to test. Default is development
 ```
 
-4. Run the project using the command below
+3. Run the setup script, it does the following
+   - setsup python
+   - install and starts mongodb
+   - install poetry
+   - install all dependencies
+   - sets up the enviroment
+   - create a system service for auto startup
 
 ```bash
-# Make sure to start your mongodb server if you are running it locally
-sudo systemctl start mongod
+source setup.sh
+```
 
+4. service would be started automatically. Later on, if you want to start or stop the service
+
+```bash
+sudo systemctl start 4eva
+sudo systemctl stop 4eva
+```
+
+Alternatively, if you dont want to use systemctl
+```bash
+export PYTHONPATH=/home/evabraids/4EvaBraids-backend/app/src
 poetry run uvicorn app.main:app --reload
 ```
+note that starting the app directly does not start nginx, so you can access it on ```localhost:8000```
+
+<br>
+
+## Running Tests
+
+To run the tests, run the command below
+
+```bash
+poetry run pytest --cov=app
+```
+
+## Other details
+> [!IMPORTANT]
+> - The `/api/bookings/` endpoint will not work if your email and password in the `.env` file is incorrect
+> - Futhermore, gmail rejects passwords and uses 2FA instead, so if you want to test this endpoint locally, create a token for your gmail account and use that as the password
+> - Steps on creating a token are outlined below
+    - Go to 'Google Security settings' when you are logged in
+    - Scroll to the bottom and click `search google account`
+    - Type `App passwords` in the search bar
+    - Type in a name in the field an press `Enter`
+    - Copy the generated token and use that as your password in the `.env` file
+> - 500 error code occurs when email fails to send
 
 <br>
 
 ## Algorithms For Crucial Parts
 
-{{ To be updated when code is ready }}
+1. Authentication:
+       - The only unauthenticated endpoint is the registration of new users. jwt token was used for authentication
+2. Booking Algorithm:
+       - When a client books an appointment, the details get sent to the chief braier's email address for follow up
+3. Whatsapp & IG:
+        - When clients decide to chat via a social app instaed, we keep a count of the number of times either whatsapp or IG is clicked so e can know how many clients were gotten via that means
+4. Blog:
+       - For now, the blog is a basic writeup with one topic, body and many comments
 
 <br>
 
 ## Deployment
 
-{{ To be updated after deploying site }}
+We deployed in an Ubuntu 22.04 Jammy virtual machine on Microsoft Azure server <br>
+Nginx was used ro reverse proxy `https` request on port `443` to an instance of the running api on port `8000`. <br>
+Mongodb runs locally on port `27017` and email client sends mail to port `587` <br>
+A system service was written for the api, to start the app automaticaly on power up of the machine.
 
 <br>
 
@@ -307,4 +326,5 @@ Hi, we appreciate any contribution to this repository, kindly fork this repo, ad
 
 1. [Google drive](https://drive.google.com/drive/folders/1nkLk7gpuJ2goUGwwKMx_iF3ZcW3887rJ?usp=sharing)
 2. [Project pitch](https://docs.google.com/presentation/d/1FpoadYXboSWbsJNq1_Om3yOAnf_qRi40m4ICDwHJI_4/edit?usp=sharing)
-3. Frontend Repository
+3. [Frontend Repository](https://github.com/Enielect/4Eva-Braids)
+4. [API Documentation](https://drive.google.com/drive/folders/1Vhp2GVdxZdluxA1XQzHLQzimNGElp6V6?usp=sharing)
