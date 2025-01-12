@@ -32,18 +32,33 @@ async def create_appointment(background_tasks: BackgroundTasks, location: str = 
     userMessage = None
 
     if not user:
-        user = UserCreate(first_name=fullname.split()[0], last_name = " ".join(fullname.split()[1:]) if len(fullname.split()) > 1 else "", email=email, phone_number=phone_number, password="password")
+        user = UserCreate(first_name=fullname.split()[0], last_name = " ".join(fullname.split()[1:]) if len(fullname.split()) > 1 else "", email=email, phone_number=phone_number, password="Pa$$word123")
         user = await user_controller.create_user(user)
 
-        userMessage = f'''
-        Hello {user.first_name}, you have been successfully booked an appiontment with the following details:
-        Location: {location}
-        Time: {time}
-
-        We created an account for you to ease booking process in the future, here is your login details:
-        Email: {email}
-        Password: password
-        '''
+        userMessage = f"""
+        <html>
+        <body>
+            <div style="text-align:center; background-color:#ff0000; color:#ffffff; padding:20px;">
+                <h1>4evabraids</h1>
+            </div>
+            <div style="padding:20px; font-family:Arial, sans-serif; font-size:14px;">
+                <p>Hello <strong>{user.first_name}</strong>,</p>
+                <p>You have successfully booked an appointment with the following details:</p>
+                <ul>
+                    <li><strong>Location:</strong> {location}</li>
+                    <li><strong>Date:</strong> {date}</li>
+                    <li><strong>Time:</strong> {time}</li>
+                </ul>
+                <p>We created an account for you to ease the booking process in the future. Here are your login details:</p>
+                <ul>
+                    <li><strong>Email:</strong> {email}</li>
+                    <li><strong>Pa$$word123:</strong> password</li>
+                </ul>
+                <p>Thanks for choosing 4evabraids!</p>
+            </div>
+        </body>
+        </html>
+        """
 
         try:
             await send_email(background_tasks, "Account Created", userMessage, recipients=[email])
@@ -53,13 +68,26 @@ async def create_appointment(background_tasks: BackgroundTasks, location: str = 
 
     # Send booking details back to the user
     if not userMessage:
-        userMessage = f'''
-        Hello {user.first_name}, you have been successfully booked an appiontment with the following details:
-        Location: {location}
-        Time: {time}
-
-        We will reach out to you shortly via calls or Whatsapp
-        '''
+        userMessage = f"""
+        <html>
+        <body>
+            <div style="text-align:center; background-color:#ff0000; color:#ffffff; padding:20px;">
+                <h1>4evabraids</h1>
+            </div>
+            <div style="padding:20px; font-family:Arial, sans-serif; font-size:14px;">
+                <p>Hello <strong>{user.first_name}</strong>,</p>
+                <p>You have successfully booked an appointment with the following details:</p>
+                <ul>
+                    <li><strong>Location:</strong> {location}</li>
+                    <li><strong>Date:</strong> {date}</li>
+                    <li><strong>Time:</strong> {time}</li>
+                </ul>
+                <p>We will reach out to you shortly via calls or WhatsApp.</p>
+                <p>Thanks for choosing 4evabraids!</p>
+            </div>
+        </body>
+        </html>
+        """
 
         try:
             await send_email(background_tasks, "Appointment Booked", userMessage, recipients=[email])
@@ -69,21 +97,31 @@ async def create_appointment(background_tasks: BackgroundTasks, location: str = 
     
     # Build up the message to be sent to braider
     subject = "You have a new appointment"
-    content = f'''
-    Hello, you have a booking with the following details:
-    
-    Name:   {user.first_name} {user.last_name}
-    Phone:  {user.phone_number}
-    Email:  {user.email}
-    Desired Date:   {date}
-    Desired timeTime:   {time}
-    Location:   {location}
-    Style:  {style}
-    Do well to contact her as soon as possible!
-    '''
-
+    content = f"""
+    <html>
+    <body>
+        <div style="text-align:center; background-color:#ff0000; color:#ffffff; padding:20px;">
+            <h1>4evabraids</h1>
+        </div>
+        <div style="padding:20px; font-family:Arial, sans-serif; font-size:14px;">
+            <p><strong>Hello</strong>,</p>
+            <p>You have a booking with the following details:</p>
+            <ul>
+                <li><strong>Name:</strong> {user.first_name} {user.last_name}</li>
+                <li><strong>Phone:</strong> {user.phone_number}</li>
+                <li><strong>Email:</strong> {user.email}</li>
+                <li><strong>Desired Date:</strong> {date}</li>
+                <li><strong>Desired Time:</strong> {time}</li>
+                <li><strong>Location:</strong> {location}</li>
+                <li><strong>Style:</strong> {style}</li>
+            </ul>
+            <p>Do well to contact her as soon as possible!</p>
+        </div>
+    </body>
+    </html>
+    """
     try:
         await send_email(background_tasks, subject, content)
         return {"message": "Email sent successfully"}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Internal server error: Could not send email. {str(e)}")
