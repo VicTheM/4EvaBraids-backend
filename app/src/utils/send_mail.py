@@ -26,7 +26,7 @@ async def send_email(background_tasks: BackgroundTasks, subject: str, content: s
         subject=subject,
         recipients=recipients,
         body=content,
-        subtype="plain"
+        subtype="html"
     )
 
     fm = FastMail(conf)
@@ -34,4 +34,4 @@ async def send_email(background_tasks: BackgroundTasks, subject: str, content: s
         background_tasks.add_task(fm.send_message, message)
         return {"message": "Email sent successfully"}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="Could not send email")
