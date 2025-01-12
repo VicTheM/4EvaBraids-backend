@@ -38,7 +38,7 @@ async def create_appointment(background_tasks: BackgroundTasks, location: str = 
         userMessage = f"""
         <html>
         <body>
-            <div style="text-align:center; background-color:#ff0000; color:#ffffff; padding:20px;">
+            <div style="text-align:center; background-color:#C5A02E; color:#ffffff; padding:20px;">
                 <h1>4evabraids</h1>
             </div>
             <div style="padding:20px; font-family:Arial, sans-serif; font-size:14px;">
@@ -71,7 +71,7 @@ async def create_appointment(background_tasks: BackgroundTasks, location: str = 
         userMessage = f"""
         <html>
         <body>
-            <div style="text-align:center; background-color:#ff0000; color:#ffffff; padding:20px;">
+            <div style="text-align:center; background-color:#C5A02E; color:#ffffff; padding:20px;">
                 <h1>4evabraids</h1>
             </div>
             <div style="padding:20px; font-family:Arial, sans-serif; font-size:14px;">
@@ -100,7 +100,7 @@ async def create_appointment(background_tasks: BackgroundTasks, location: str = 
     content = f"""
     <html>
     <body>
-        <div style="text-align:center; background-color:#ff0000; color:#ffffff; padding:20px;">
+        <div style="text-align:center; background-color:#C5A02E; color:#ffffff; padding:20px;">
             <h1>4evabraids</h1>
         </div>
         <div style="padding:20px; font-family:Arial, sans-serif; font-size:14px;">
