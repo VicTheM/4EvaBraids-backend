@@ -9,6 +9,7 @@
 </p>
 
 ---
+#### Frontend repository [Frontend on Github](https://github.com/Enielect/4Eva-Braids)
 #### Deployed frontend: [4evabraids.live](https://4-eva-braids.vercel.app/)
 ---
 
@@ -326,5 +327,4 @@ Hi, we appreciate any contribution to this repository, kindly fork this repo, ad
 
 1. [Google drive](https://drive.google.com/drive/folders/1nkLk7gpuJ2goUGwwKMx_iF3ZcW3887rJ?usp=sharing)
 2. [Project pitch](https://docs.google.com/presentation/d/1FpoadYXboSWbsJNq1_Om3yOAnf_qRi40m4ICDwHJI_4/edit?usp=sharing)
-3. [Frontend Repository](https://github.com/Enielect/4Eva-Braids)
-4. [API Documentation](https://drive.google.com/drive/folders/1Vhp2GVdxZdluxA1XQzHLQzimNGElp6V6?usp=sharing)
+3. [API Documentation](https://drive.google.com/drive/folders/1Vhp2GVdxZdluxA1XQzHLQzimNGElp6V6?usp=sharing)
