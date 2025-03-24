@@ -9,8 +9,9 @@
 </p>
 
 ---
+### Live site: [https://4-eva-braids.vercel.app/](https://4-eva-braids.vercel.app/)
+#### Online api documentation: [http://api.4evabraids.live/docs](http://api.4evabraids.live/docs)
 #### Frontend repository [Frontend on Github](https://github.com/Enielect/4Eva-Braids)
-#### Deployed frontend: [4evabraids.live](https://4-eva-braids.vercel.app/)
 ---
 
 ## Contents
