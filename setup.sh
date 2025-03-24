@@ -91,9 +91,9 @@ After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/home/evabraids/4EvaBraids-backend
+WorkingDirectory=$(echo $HOME)/4EvaBraids-backend
 Environment="PATH=$(poetry env info --path)/bin"
-Environment="PYTHONPATH=/home/evabraids/4EvaBraids-backend/app/src"
+Environment="PYTHONPATH=$(echo $HOME)/4EvaBraids-backend/app/src"
 ExecStart=$(poetry run which uvicorn) app.main:app --host 0.0.0.0 --port 8000 --workers 4 --log-level debug
 Restart=always
 RestartSec=3
