@@ -9,7 +9,7 @@
 </p>
 
 ---
-### Live site: [https://4-eva-braids.vercel.app/](https://4-eva-braids.vercel.app/)
+#### Live site: [https://www.4evabraids.live/](https://www.4evabraids.live/)
 #### Online api documentation: [http://api.4evabraids.live/docs](http://api.4evabraids.live/docs)
 #### Frontend repository [Frontend on Github](https://github.com/Enielect/4Eva-Braids)
 ---
