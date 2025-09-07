@@ -4,12 +4,10 @@ This file defines the route used to book an appointment
 from fastapi import APIRouter
 from fastapi import BackgroundTasks
 from utils.send_mail import send_email
-from web.auth import oauth2_scheme
-from fastapi import HTTPException, Depends, status
+from fastapi import HTTPException
 from controllers import user as user_controller
-import jwt
-from config import settings
 from models.user import UserCreate
+from service.booking import build_account_created_email, build_booking_email, build_braider_email
 
 router = APIRouter(prefix="/bookings", tags=["bookings"])
 
@@ -30,98 +28,26 @@ async def create_appointment(background_tasks: BackgroundTasks, location: str = 
         user = None
     
     userMessage = None
-
     if not user:
         user = UserCreate(first_name=fullname.split()[0], last_name = " ".join(fullname.split()[1:]) if len(fullname.split()) > 1 else "", email=email, phone_number=phone_number, password="Pa$$word123")
         user = await user_controller.create_user(user)
 
-        userMessage = f"""
-        <html>
-        <body>
-            <div style="text-align:center; background-color:#C5A02E; color:#ffffff; padding:20px;">
-                <h1>4evabraids</h1>
-            </div>
-            <div style="padding:20px; font-family:Arial, sans-serif; font-size:14px;">
-                <p>Hello <strong>{user.first_name}</strong>,</p>
-                <p>You have successfully booked an appointment with the following details:</p>
-                <ul>
-                    <li><strong>Location:</strong> {location}</li>
-                    <li><strong>Date:</strong> {date}</li>
-                    <li><strong>Time:</strong> {time}</li>
-                </ul>
-                <p>We created an account for you to ease the booking process in the future. Here are your login details:</p>
-                <ul>
-                    <li><strong>Email:</strong> {email}</li>
-                    <li><strong>Pa$$word123:</strong> password</li>
-                </ul>
-                <p>Thanks for choosing 4evabraids!</p>
-            </div>
-        </body>
-        </html>
-        """
-
+        userMessage = build_account_created_email(user, location, date, time, email)
         try:
             await send_email(background_tasks, "Account Created", userMessage, recipients=[email])
         except Exception as e:
-            pass
-
-
-    # Send booking details back to the user
-    if not userMessage:
-        userMessage = f"""
-        <html>
-        <body>
-            <div style="text-align:center; background-color:#C5A02E; color:#ffffff; padding:20px;">
-                <h1>4evabraids</h1>
-            </div>
-            <div style="padding:20px; font-family:Arial, sans-serif; font-size:14px;">
-                <p>Hello <strong>{user.first_name}</strong>,</p>
-                <p>You have successfully booked an appointment with the following details:</p>
-                <ul>
-                    <li><strong>Location:</strong> {location}</li>
-                    <li><strong>Date:</strong> {date}</li>
-                    <li><strong>Time:</strong> {time}</li>
-                </ul>
-                <p>We will reach out to you shortly via calls or WhatsApp.</p>
-                <p>Thanks for choosing 4evabraids!</p>
-            </div>
-        </body>
-        </html>
-        """
-
+            raise HTTPException(status_code=500, detail=f"Internal server error: Could not send email. {str(e)}")
+    else:
+        userMessage = build_booking_email(user, location, date, time)
         try:
             await send_email(background_tasks, "Appointment Booked", userMessage, recipients=[email])
         except Exception as e:
-            pass
+            raise HTTPException(status_code=500, detail=f"Internal server error: Could not send email. {str(e)}")
 
-    
-    # Build up the message to be sent to braider
-    subject = "You have a new appointment"
-    content = f"""
-    <html>
-    <body>
-        <div style="text-align:center; background-color:#C5A02E; color:#ffffff; padding:20px;">
-            <h1>4evabraids</h1>
-        </div>
-        <div style="padding:20px; font-family:Arial, sans-serif; font-size:14px;">
-            <p><strong>Hello</strong>,</p>
-            <p>You have a booking with the following details:</p>
-            <ul>
-                <li><strong>Name:</strong> {user.first_name} {user.last_name}</li>
-                <li><strong>Phone:</strong> {user.phone_number}</li>
-                <li><strong>Email:</strong> {user.email}</li>
-                <li><strong>Desired Date:</strong> {date}</li>
-                <li><strong>Desired Time:</strong> {time}</li>
-                <li><strong>Location:</strong> {location}</li>
-                <li><strong>Style:</strong> {style}</li>
-            </ul>
-            <p>Do well to contact her as soon as possible!</p>
-        </div>
-    </body>
-    </html>
-    """
+    # Notify braider
+    braiderMessage = build_braider_email(user, location, style, date, time)
     try:
-        await send_email(background_tasks, subject, content)
+        await send_email(background_tasks, "You have a new appointment", braiderMessage)
         return {"message": "Email sent successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal server error: Could not send email. {str(e)}")

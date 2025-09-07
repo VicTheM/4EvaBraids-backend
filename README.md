@@ -9,7 +9,9 @@
 </p>
 
 ---
-#### Deployed frontend: [4evabraids.live](https://4-eva-braids.vercel.app/)
+#### Live site: [https://www.4evabraids.live/](https://www.4evabraids.live/)
+#### Online api documentation: [http://api.4evabraids.live/docs](http://api.4evabraids.live/docs)
+#### Frontend repository [Frontend on Github](https://github.com/Enielect/4Eva-Braids)
 ---
 
 ## Contents
@@ -30,7 +32,7 @@
 
 ## Introduction
 
-4EvaBraids is an online hair braiding platform, where users can books appointments with with skilled braiders and get their hair made, either as home service or onsite braiding. While this is the core of it's purpose there are other functionalities and features developed to spice up the site - Read on and see more!
+4EvaBraids is an online hair braiding platform, where users can books appointments with skilled braiders and get their hair made, either as home service or onsite braiding. While this is the core of it's purpose there are other functionalities and features developed to spice up the site - Read on and see more!
 
 <br>
 
@@ -43,7 +45,7 @@
 -   Purpose
     -   The purpose of this site is to make finding and making braiding appointments easier for clients and also to automate managing custormers for the braiders. It also improves visibility and professionalism.
 -   Motivation
-    -   Prior tonow, braiders use Instagram and Tiktok as their bassic platform for professional page and work gallery. while these platforms are very good when used as galleries, they have several disadvantages. Just to list a few
+    -   Prior tonow, braiders use Instagram and Tiktok as their basic platform for professional page and work gallery. while these platforms are very good when used as galleries, they have several disadvantages. Just to list a few
         -   Not flexible
         -   Zero Automation
         -   Less professional
@@ -294,11 +296,11 @@ poetry run pytest --cov=app
 ## Algorithms For Crucial Parts
 
 1. Authentication:
-       - The only unauthenticated endpoint is the registration of new users. jwt token was used for authentication
+       - The only unauthenticated endpoint is the registration of new users and obtaining Whatsapp and IG stats. jwt token was used for authentication
 2. Booking Algorithm:
-       - When a client books an appointment, the details get sent to the chief braier's email address for follow up
+       - When a client books an appointment, the details get sent to the chief braier's email address for follow up and to the client for reminder
 3. Whatsapp & IG:
-        - When clients decide to chat via a social app instaed, we keep a count of the number of times either whatsapp or IG is clicked so e can know how many clients were gotten via that means
+        - When clients decide to chat via a social app instaed, we keep a count of the number of times either whatsapp or IG is clicked so we can know how many clients were gotten via that means
 4. Blog:
        - For now, the blog is a basic writeup with one topic, body and many comments
 
@@ -326,5 +328,4 @@ Hi, we appreciate any contribution to this repository, kindly fork this repo, ad
 
 1. [Google drive](https://drive.google.com/drive/folders/1nkLk7gpuJ2goUGwwKMx_iF3ZcW3887rJ?usp=sharing)
 2. [Project pitch](https://docs.google.com/presentation/d/1FpoadYXboSWbsJNq1_Om3yOAnf_qRi40m4ICDwHJI_4/edit?usp=sharing)
-3. [Frontend Repository](https://github.com/Enielect/4Eva-Braids)
-4. [API Documentation](https://drive.google.com/drive/folders/1Vhp2GVdxZdluxA1XQzHLQzimNGElp6V6?usp=sharing)
+3. [API Documentation](https://drive.google.com/drive/folders/1Vhp2GVdxZdluxA1XQzHLQzimNGElp6V6?usp=sharing)
