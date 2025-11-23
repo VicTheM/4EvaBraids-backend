@@ -8,6 +8,7 @@ from fastapi import HTTPException
 from controllers import user as user_controller
 from models.user import UserCreate
 from service.booking import build_account_created_email, build_booking_email, build_braider_email
+from config import settings
 
 router = APIRouter(prefix="/bookings", tags=["bookings"])
 
@@ -29,7 +30,7 @@ async def create_appointment(background_tasks: BackgroundTasks, location: str = 
     
     userMessage = None
     if not user:
-        user = UserCreate(first_name=fullname.split()[0], last_name = " ".join(fullname.split()[1:]) if len(fullname.split()) > 1 else "", email=email, phone_number=phone_number, password="Pa$$word123")
+        user = UserCreate(first_name=fullname.split()[0], last_name = " ".join(fullname.split()[1:]) if len(fullname.split()) > 1 else "", email=email, phone_number=phone_number, password=settings.USERPASSWORD)
         user = await user_controller.create_user(user)
 
         userMessage = build_account_created_email(user, location, date, time, email)
