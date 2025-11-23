@@ -45,6 +45,7 @@ class Config:
         self.token_expiration = int(os.getenv("TOKEN_EXPIRATION", 3600))
         self.email = os.getenv("EMAIL", "victorychibuike121@gmail.com")
         self.password = os.getenv("PASSWORD", "password")
+        self.userpassword = os.getenv("USERPASSWORD", "userpassword")
 
     @property
     def db(self):
@@ -69,6 +70,10 @@ class Config:
     @property
     def PASSWORD(self):
         return self.password
+    
+    @property
+    def USERPASSWORD(self):
+        return self.userpassword
 
 
 settings = Config()
