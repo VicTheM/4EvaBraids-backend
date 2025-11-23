@@ -9,7 +9,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 class UserCreate(BaseModel):
     first_name: str = Field(..., min_length=2, max_length=50)
-    last_name: str = Field(..., min_length=2, max_length=50)
+    last_name: str = Field(..., max_length=50)
     email: str = Field(
         ..., pattern=r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
     )

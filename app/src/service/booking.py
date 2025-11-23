@@ -1,5 +1,6 @@
 """Helper functions to build email bodies for different scenarios"""
 from typing import List
+from config import settings
 
 def build_email_body(title: str, body: str) -> str:
     """Generic HTML wrapper for emails"""
@@ -28,7 +29,7 @@ def build_account_created_email(user, location, date, time, email) -> str:
         <p>We created an account for you to ease the booking process in the future. Here are your login details:</p>
         <ul>
             <li><strong>Email:</strong> {email}</li>
-            <li><strong>Password:</strong> Pa$$word123</li>
+            <li><strong>Password:</strong> {settings.USERPASSWORD}</li>
         </ul>
         <p>Thanks for choosing 4evabraids!</p>
     """
